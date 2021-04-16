@@ -105,9 +105,9 @@ void Application::Execute()
 	int count = 0;
 
 	// フレームカウント
-	int frameCnt = 0;
-	int frameCnt2 = 100;
-	bool frameCntflg;
+	int frameCntR = 100;
+	int frameCntG = 0;
+	int frameCntB = 0;
 
 	// ループ
 	while (1)
@@ -148,17 +148,20 @@ void Application::Execute()
 		// ゲーム処理
 		//
 		//=========================================
-		Math::Color backCol(frameCnt*0.01f, frameCnt2*0.01f, 1.0f, 1.0f);
-		if (frameCnt==100)
-			frameCntflg=false;
-		else if (frameCnt==0)
-			frameCntflg=true;
-		if (frameCntflg) {
-			frameCnt++; frameCnt2--;
+		Math::Color backCol(frameCntR*0.01f, frameCntG*0.01f, frameCntB*0.01f, 0.0f);
+		if (frameCntR >0&&frameCntG<100&&frameCntB==0) {
+			frameCntR--;
+			frameCntG++;
 		}
-		else {
-			frameCnt--; frameCnt2++;
+		else if (frameCntG > 0 && frameCntB<100&&frameCntR==0) {
+			frameCntG--;
+			frameCntB++;
 		}
+		else if (frameCntB > 0 && frameCntR < 100&&frameCntG==0) {
+			frameCntB--;
+			frameCntR++;
+		}
+	
 
 		//秘密鍵コミットテスト
 
