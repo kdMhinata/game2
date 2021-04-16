@@ -160,6 +160,8 @@ void Application::Execute()
 			frameCnt--; frameCnt2++;
 		}
 
+		//秘密鍵コミットテスト
+
 
 		D3D.WorkDevContext()->ClearRenderTargetView(
 			D3D.WorkBackBuffer()->WorkRTView(), backCol);
