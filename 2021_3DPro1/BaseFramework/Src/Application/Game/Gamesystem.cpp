@@ -2,7 +2,7 @@
 
 void GameSystem::Init()
 {
-	m_sky.Load();
+	m_sky.Load("Data/Models/Sky/Sky.png");
 }
 
 void GameSystem::Update()
@@ -12,7 +12,9 @@ void GameSystem::Update()
 
 void GameSystem::Draw()
 {
-	OutputDebugStringA("描画関数\n");
+	SHADER->m_effectShader.SetToDevice();
+	
+	SHADER->m_effectShader.DrawModel(m_sky);
 }
 
 void GameSystem::Release()
