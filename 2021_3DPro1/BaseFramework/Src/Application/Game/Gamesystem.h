@@ -4,9 +4,14 @@ class GameSystem
 public:
 	GameSystem() {}
 
-	~GameSystem() {}
+	~GameSystem() { Release(); }
 
 	void Init();
 	void Update();
 	void Draw();
+
+private:
+		void Release();
+
+		KdModelWork m_sky;
 };

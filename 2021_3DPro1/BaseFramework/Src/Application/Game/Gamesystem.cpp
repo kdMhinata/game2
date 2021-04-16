@@ -2,7 +2,7 @@
 
 void GameSystem::Init()
 {
-	OutputDebugStringA("初期化関数\n");
+	m_sky.Load();
 }
 
 void GameSystem::Update()
@@ -13,4 +13,9 @@ void GameSystem::Update()
 void GameSystem::Draw()
 {
 	OutputDebugStringA("描画関数\n");
+}
+
+void GameSystem::Release()
+{
+	OutputDebugStringA("解放関数\n");
 }

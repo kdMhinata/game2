@@ -43,6 +43,9 @@
     <Filter Include="Src\System\Audio">
       <UniqueIdentifier>{2a0de30f-d7e8-4517-a9a1-20de6e434592}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Game">
+      <UniqueIdentifier>{7682c7ba-1fd8-4213-bb0b-e7b5fbf458d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="Src\System\Direct3D\KdCamera.h">
       <Filter>Src\System\Direct3D</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Game\Gamesystem.h">
+      <Filter>Src\Application\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -184,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="Src\System\Direct3D\KdCamera.cpp">
       <Filter>Src\System\Direct3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\Gamesystem.cpp">
+      <Filter>Src\Application\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

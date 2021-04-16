@@ -1,5 +1,6 @@
 ﻿#include "main.h"
 
+#include "Game/Gamesystem.h"
 //===================================================================
 // メイン
 //===================================================================
@@ -83,6 +84,7 @@ void Application::Release()
 
 	// ウィンドウ削除
 	m_window.Release();
+
 }
 
 // アプリケーション実行
@@ -94,6 +96,9 @@ void Application::Execute()
 	if (APP.Init(1280, 720) == false) {
 		return;
 	}
+	GameSystem gs;
+
+	gs.Init();
 
 	//===================================================================
 	// ゲームループ
@@ -143,6 +148,7 @@ void Application::Execute()
 		// ゲーム処理
 		//
 		//=========================================
+		gs.Update();
 		Math::Color backCol(0.0f, 0.0f, 0.0f, 0.0f);
 
 		//秘密鍵コミットテスト
@@ -153,6 +159,8 @@ void Application::Execute()
 
 		D3D.WorkDevContext()->ClearDepthStencilView(D3D.WorkZBuffer()->WorkDSView(),
 			D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+		gs.Draw();
 
 		D3D.WorkSwapChain()->Present(0, 0);
 		//=========================================
