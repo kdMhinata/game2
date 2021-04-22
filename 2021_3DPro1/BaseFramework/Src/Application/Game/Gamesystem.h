@@ -14,4 +14,6 @@ private:
 		void Release();
 
 		KdModelWork m_sky;
+
+		KdCamera	m_camera;
 };
