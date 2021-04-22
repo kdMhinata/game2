@@ -3,6 +3,7 @@
 void GameSystem::Init()
 {
 	m_sky.Load("Data/Models/Sky/Sky.gltf");
+	m_cube.Load("Data/Models/Cube/cube.gltf");
 	m_camera.SetProjectionMatrix(60.0f);
 }
 
@@ -18,6 +19,9 @@ void GameSystem::Draw()
 	SHADER->m_effectShader.SetToDevice();
 	
 	SHADER->m_effectShader.DrawModel(m_sky);
+
+	SHADER->m_effectShader.DrawModel(m_cube);
+
 }
 
 void GameSystem::Release()
