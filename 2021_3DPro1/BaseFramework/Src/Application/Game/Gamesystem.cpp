@@ -5,10 +5,8 @@ void GameSystem::Init()
 	m_sky.Load("Data/Models/Sky/Sky.gltf");
 	m_cube.Load("Data/Models/Cube/cube.gltf");
 	m_camera.SetProjectionMatrix(60.0f);
-	DirectX::SimpleMath::Matrix rotation;
-	rotation = rotation.CreateRotationY(1/*コンバートラディアン*/);
-	DirectX::SimpleMath::Matrix& cameraMat = m_camera.WorkCamera();
-	cameraMat *= rotation;
+	
+	
 	
 }
 
@@ -16,6 +14,15 @@ void GameSystem::Update()
 {
 	
 	OutputDebugStringA("更新関数\n");
+
+	/*DirectX::SimpleMath::Matrix rotation;
+	rotation = rotation.CreateRotationY(DirectX::XMConvertToRadians(1));
+	DirectX::SimpleMath::Matrix& cameraMat = m_camera.WorkCamera();
+	cameraMat = cameraMat * rotation;*/
+
+	DirectX::SimpleMath::Matrix rotation;
+	rotation = rotation.CreateRotationY(DirectX::XMConvertToRadians(1));
+	m_cubeMat = rotation * m_cubeMat;
 
 	//カメラ　上下左右処理(テスト)
 	DirectX::SimpleMath::Matrix initPos;
@@ -51,7 +58,7 @@ void GameSystem::Draw()
 	
 	SHADER->m_effectShader.DrawModel(m_sky);
 
-	SHADER->m_effectShader.DrawModel(m_cube);
+	SHADER->m_effectShader.DrawModel(m_cube,m_cubeMat);
 
 }
 
