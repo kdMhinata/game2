@@ -26,5 +26,5 @@ private:
 		DirectX::SimpleMath::Matrix m_cubeMat;
 
 		KdCamera	m_camera;
-		StageMap*	m_stage= nullptr;
+		StageMap*	m_pStage= nullptr;
 };

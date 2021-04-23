@@ -13,7 +13,7 @@ void GameSystem::Init()
 	scale = scale.CreateScale(30);
 	m_skyMat = scale * m_skyMat;
 	
-	StageMap* Init();
+	m_pStage->Init();
 }
 
 void GameSystem::Update()
@@ -40,11 +40,11 @@ void GameSystem::Update()
 	}
 	m_cubeMat = rotation * translation;
 
-
 	//カメラ　上下左右処理(テスト)
-	DirectX::SimpleMath::Matrix cmeraPos;
-	cmeraPos = cmeraPos.CreateTranslation({ test2 * 0.1f,test * 0.1f, test3 * 0.1f });
-	m_camera.SetCameraMatrix(cmeraPos);
+	DirectX::SimpleMath::Matrix cameraPos;
+	cameraPos = cameraPos.CreateTranslation({ test2 * 0.1f,test * 0.1f, test3 * 0.1f });
+	m_camera.SetCameraMatrix(cameraPos);
+
 
 	if (GetAsyncKeyState('S'))
 	{
@@ -83,12 +83,16 @@ void GameSystem::Draw()
 	
 	SHADER->m_effectShader.DrawModel(m_sky,m_skyMat);
 
-	SHADER->m_effectShader.DrawModel(m_cube,m_cubeMat);
-	StageMap* Draw();
+	SHADER->m_effectShader.DrawModel(m_cube, m_cubeMat);
+	if (m_pStage)
+		m_pStage->Draw();
 
 }
 
 void GameSystem::Release()
 {
 	OutputDebugStringA("解放関数\n");
+	if (m_pStage)
+		delete(m_pStage);
+	m_pStage = nullptr;
 }

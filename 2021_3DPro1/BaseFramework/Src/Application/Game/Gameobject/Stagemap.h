@@ -12,6 +12,7 @@ public:
 
 private:
 	void Release();
+	KdModelWork m_modelWork;
 
 	KdModelWork m_stage;
 	DirectX::SimpleMath::Matrix m_stageMat;

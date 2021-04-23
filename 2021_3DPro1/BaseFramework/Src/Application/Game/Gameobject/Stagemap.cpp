@@ -10,7 +10,8 @@ StageMap::~StageMap()
 
 void StageMap::Init()
 {
-	m_stage.Load("Data/Models/Stage/Stagemap.gltf");
+
+	m_modelWork.Load("Data/Models/Stage/StageMapx.gltf");
 }
 
 void StageMap::Updata()
@@ -19,7 +20,7 @@ void StageMap::Updata()
 
 void StageMap::Draw()
 {
-	SHADER->m_effectShader.DrawModel(m_stage);
+	SHADER->m_effectShader.DrawModel(m_modelWork);
 }
 
 void StageMap::Release()
