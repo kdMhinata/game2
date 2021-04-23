@@ -1,4 +1,7 @@
 ﻿#pragma once
+
+class StageMap;
+
 class GameSystem
 {
 public:
@@ -22,6 +25,6 @@ private:
 		KdModelWork m_cube;
 		DirectX::SimpleMath::Matrix m_cubeMat;
 
-
 		KdCamera	m_camera;
+		StageMap*	m_stage= nullptr;
 };

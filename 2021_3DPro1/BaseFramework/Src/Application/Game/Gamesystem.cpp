@@ -1,9 +1,11 @@
 ﻿#include "Gamesystem.h"
+#include "Gameobject/Stagemap.h"
 
 void GameSystem::Init()
 {
 	m_sky.Load("Data/Models/Sky/Sky.gltf");
 	m_cube.Load("Data/Models/Cube/cube2.gltf");
+
 	m_camera.SetProjectionMatrix(60.0f,2000);
 	
 	//空の拡縮
@@ -11,6 +13,7 @@ void GameSystem::Init()
 	scale = scale.CreateScale(30);
 	m_skyMat = scale * m_skyMat;
 	
+	StageMap* Init();
 }
 
 void GameSystem::Update()
@@ -81,6 +84,7 @@ void GameSystem::Draw()
 	SHADER->m_effectShader.DrawModel(m_sky,m_skyMat);
 
 	SHADER->m_effectShader.DrawModel(m_cube,m_cubeMat);
+	StageMap* Draw();
 
 }
 

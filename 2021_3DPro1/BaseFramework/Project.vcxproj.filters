@@ -46,6 +46,9 @@
     <Filter Include="Src\Application\Game">
       <UniqueIdentifier>{7682c7ba-1fd8-4213-bb0b-e7b5fbf458d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Game\Gameobject">
+      <UniqueIdentifier>{6bd96b46-e420-4e09-97d3-b47589c95e5a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -129,6 +132,9 @@
     <ClInclude Include="Src\Application\Game\Gamesystem.h">
       <Filter>Src\Application\Game</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Game\Gameobject\Stagemap.h">
+      <Filter>Src\Application\Game\Gameobject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Game\Gamesystem.cpp">
       <Filter>Src\Application\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\Gameobject\Stagemap.cpp">
+      <Filter>Src\Application\Game\Gameobject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
