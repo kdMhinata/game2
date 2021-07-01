@@ -7,7 +7,7 @@ public:
 	~StageMap();
 
 	void Init();
-	void Updata();
+	void Update();
 	void Draw();
 
 private:

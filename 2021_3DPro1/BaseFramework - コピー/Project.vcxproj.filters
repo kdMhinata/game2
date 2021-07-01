@@ -44,13 +44,16 @@
       <UniqueIdentifier>{2a0de30f-d7e8-4517-a9a1-20de6e434592}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\Game">
-      <UniqueIdentifier>{7682c7ba-1fd8-4213-bb0b-e7b5fbf458d0}</UniqueIdentifier>
+      <UniqueIdentifier>{23a24a66-11fe-460b-814b-8aef9bb6382a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Game\Gameobject">
-      <UniqueIdentifier>{6bd96b46-e420-4e09-97d3-b47589c95e5a}</UniqueIdentifier>
+    <Filter Include="Src\Application\Game\GameObject">
+      <UniqueIdentifier>{8083295d-4aae-41f2-8126-a49bd9510041}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\Camera">
-      <UniqueIdentifier>{af228f82-a530-4362-9515-7cd2ddb90866}</UniqueIdentifier>
+    <Filter Include="Src\Application\Game\Camera">
+      <UniqueIdentifier>{33fdfd63-00c0-44a1-bcc4-4a6fdedb44f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\Utility">
+      <UniqueIdentifier>{086f7d0f-f160-4c40-a3fc-c6e357c1e19d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -132,17 +135,35 @@
     <ClInclude Include="Src\System\Direct3D\KdCamera.h">
       <Filter>Src\System\Direct3D</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Game\Gamesystem.h">
+    <ClInclude Include="Src\Application\Game\GameSystem.h">
       <Filter>Src\Application\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Game\Gameobject\Stagemap.h">
-      <Filter>Src\Application\Game\Gameobject</Filter>
+    <ClInclude Include="Src\Application\Game\GameObject\StageMap.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Game\Gameobject\Player.h">
-      <Filter>Src\Application\Game\Gameobject</Filter>
+    <ClInclude Include="Src\Application\Game\GameObject\Player.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\Camera\FPSCamera.h">
-      <Filter>Src\Application\Camera</Filter>
+    <ClInclude Include="Src\Application\Game\Camera\FPSCamera.h">
+      <Filter>Src\Application\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Game\Camera\TPSCamera.h">
+      <Filter>Src\Application\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Game\GameObject\Enemy.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Game\GameObject\Arrow.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Game\GameObject\GameObject.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Utility\ResourceFactory.h">
+      <Filter>Src\Application\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Application.h">
+      <Filter>Src\Application</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,17 +227,32 @@
     <ClCompile Include="Src\System\Direct3D\KdCamera.cpp">
       <Filter>Src\System\Direct3D</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Game\Gamesystem.cpp">
+    <ClCompile Include="Src\Application\Game\GameSystem.cpp">
       <Filter>Src\Application\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Game\Gameobject\Stagemap.cpp">
-      <Filter>Src\Application\Game\Gameobject</Filter>
+    <ClCompile Include="Src\Application\Game\GameObject\StageMap.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Game\Gameobject\Player.cpp">
-      <Filter>Src\Application\Game\Gameobject</Filter>
+    <ClCompile Include="Src\Application\Game\GameObject\Player.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\Camera\FPSCamera.cpp">
-      <Filter>Src\Application\Camera</Filter>
+    <ClCompile Include="Src\Application\Game\Camera\FPSCamera.cpp">
+      <Filter>Src\Application\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\Camera\TPSCamera.cpp">
+      <Filter>Src\Application\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\GameObject\Enemy.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\GameObject\Arrow.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\GameObject\GameObject.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Utility\ResourceFactory.cpp">
+      <Filter>Src\Application\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

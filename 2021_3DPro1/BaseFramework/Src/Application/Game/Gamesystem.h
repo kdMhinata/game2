@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 class StageMap;
+class Player;
 
 class GameSystem
 {
@@ -12,9 +13,6 @@ public:
 	void Init();
 	void Update();
 	void Draw();
-	float test=0; //テスト用変数
-	float test2 = 0; //テスト用変数2
-	float test3 = -3; //略
 
 private:
 		void Release();
@@ -26,5 +24,7 @@ private:
 		DirectX::SimpleMath::Matrix m_cubeMat;
 
 		KdCamera	m_camera;
+
 		StageMap*	m_pStage= nullptr;
+		Player* m_pPlayer = nullptr;
 };

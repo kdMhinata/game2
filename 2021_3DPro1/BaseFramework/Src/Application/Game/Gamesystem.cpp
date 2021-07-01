@@ -1,19 +1,23 @@
 ﻿#include "Gamesystem.h"
 #include "Gameobject/Stagemap.h"
+#include "Gameobject/Player.h"
 
 void GameSystem::Init()
 {
 	m_sky.Load("Data/Models/Sky/Sky.gltf");
 	m_cube.Load("Data/Models/Cube/cube2.gltf");
 
-	m_camera.SetProjectionMatrix(60.0f,2000);
+	m_camera.SetProjectionMatrix(60.0f);
 	
 	//空の拡縮
 	DirectX::SimpleMath::Matrix scale;
 	scale = scale.CreateScale(30);
 	m_skyMat = scale * m_skyMat;
 	
+	m_pStage = new StageMap();
 	m_pStage->Init();
+	m_pPlayer = new Player();
+	m_pPlayer->Init();
 }
 
 void GameSystem::Update()
@@ -42,43 +46,19 @@ void GameSystem::Update()
 
 	//カメラ　上下左右処理(テスト)
 	DirectX::SimpleMath::Matrix cameraPos;
-	cameraPos = cameraPos.CreateTranslation({ test2 * 0.1f,test * 0.1f, test3 * 0.1f });
+	cameraPos = cameraPos.CreateTranslation({0.0f,0.0f,0.0f});
 	m_camera.SetCameraMatrix(cameraPos);
 
-
-	if (GetAsyncKeyState('S'))
-	{
-		test -= 1;
-	}
-
-	if (GetAsyncKeyState('W'))
-	{
-		test += 1;
-	}
-
-	if (GetAsyncKeyState('D'))
-	{
-		test2 += 1;
-	}
-
-	if (GetAsyncKeyState('A'))
-	{
-		test2 -= 1;
-	}
-
-	if (GetAsyncKeyState(VK_XBUTTON1))
-	{
-		test3 -= 1;
-	}
-	else if (GetAsyncKeyState(VK_XBUTTON2))
-	{
-		test3 += 1;
-	}
+	if (m_pStage)
+		m_pStage->Update();
+	if (m_pPlayer)
+		m_pPlayer->Update();
 }
 
 void GameSystem::Draw()
-{
-	m_camera.SetToShader();
+{	
+	m_pPlayer->GetCamera().SetToShader();
+	//m_camera.SetToShader();
 	SHADER->m_effectShader.SetToDevice();
 	
 	SHADER->m_effectShader.DrawModel(m_sky,m_skyMat);
@@ -86,6 +66,8 @@ void GameSystem::Draw()
 	SHADER->m_effectShader.DrawModel(m_cube, m_cubeMat);
 	if (m_pStage)
 		m_pStage->Draw();
+	if (m_pPlayer)
+		m_pPlayer->Draw();
 
 }
 
@@ -93,6 +75,25 @@ void GameSystem::Release()
 {
 	OutputDebugStringA("解放関数\n");
 	if (m_pStage)
+	{
 		delete(m_pStage);
-	m_pStage = nullptr;
+		m_pStage = nullptr;
+	}
+
+	if (m_pPlayer)
+	{
+		delete(m_pPlayer);
+			m_pPlayer = nullptr;
+	}
+
+	bool GameObject::CheckCOllisionBump(const SphereInfo & info, BumpResult & result)
+	{
+		Math::Vector3 betweenVec = info.m_pos - m_mWorld.Translation();
+
+		float disranceSqr = betweenVec.LengthSquard();
+
+		float hitRadius = m_radius + info.m_radius;
+
+	}
+
 }

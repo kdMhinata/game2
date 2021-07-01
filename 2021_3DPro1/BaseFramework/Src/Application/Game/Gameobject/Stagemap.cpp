@@ -11,10 +11,10 @@ StageMap::~StageMap()
 void StageMap::Init()
 {
 
-	m_modelWork.Load("Data/Models/Stage/StageMapx.gltf");
+	m_modelWork.Load("Data/Models/Stage/StageMap.gltf");
 }
 
-void StageMap::Updata()
+void StageMap::Update()
 {
 }
 
