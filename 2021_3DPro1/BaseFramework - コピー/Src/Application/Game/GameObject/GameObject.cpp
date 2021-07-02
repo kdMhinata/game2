@@ -36,14 +36,28 @@ bool GameObject::CheckCollisionBump(const RayInfo& info, BumpResult& result)
 {
 	KdRayResult localResult;
 
-	result.m_isHit = KdRayToMesh(info.m_pos, info.m_dir, info.m_range, 
-		*(m_modelWork.GetMesh(0).get()) , m_mWorld, &localResult);
-	
-	if(localResult.m_hit)
+	for (UINT i = 0; i < m_modelWork.GetDataNodes().size(); i++) 
 	{
-		result.m_pushVec = info.m_dir * (localResult.m_distance - info.m_range);
-	}
+		const KdModelData::Node& dataNode=m_modelWork.GetDataNodes()[i];
+		const KdModelWork::Node& workNode=m_modelWork.GetNodes()[i];
 
+	/*	result.m_isHit = KdRayToMesh(info.m_pos, info.m_dir, info.m_range, //発射位置、方向、判定する長さ、相手のメッシュ情報、相手の行列、出力結果
+			*(m_modelWork.GetMesh(0).get()), m_mWorld, &localResult); */
+
+		KdRayToMesh(
+			info.m_pos,
+			info.m_dir,
+			info.m_range,
+			*(dataNode.m_spMesh.get()),
+			workNode.m_worldTransform * m_mWorld,
+			&localResult);
+
+		if (localResult.m_hit)
+		{
+			result.m_pushVec = info.m_dir * (localResult.m_distance - info.m_range);
+		}
+
+	}
 
 	return result.m_isHit;
 }

@@ -124,7 +124,7 @@ void Arrow::UpdateCollition()
 	{
 		if (spObj->GetClassID() != GameObject::eStage) { continue; }
 
-		Math::Vector3 rayDir = m_mWorld.Translation() - m_prevPos;
+		Math::Vector3 rayDir = m_mWorld.Translation() - m_prevPos;//
 
 		RayInfo info(m_prevPos, rayDir, rayDir.Length());
 
@@ -133,6 +133,7 @@ void Arrow::UpdateCollition()
 		spObj->CheckCollisionBump(info, result);
 		if(result.m_isHit)
 		{ 
+			//めり込んだ分を押し返す
 			m_mWorld *= Math::Matrix::CreateTranslation(result.m_pushVec);
 
 			m_isStabbed = true;
