@@ -37,5 +37,7 @@ private:
 	std::shared_ptr<TPSCamera>		m_spCamera;
 	
 	bool m_canShot = true;
+
+	float m_gravity = 0.0f;
 };
 

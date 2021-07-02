@@ -124,19 +124,22 @@ void Arrow::UpdateCollition()
 	{
 		if (spObj->GetClassID() != GameObject::eStage) { continue; }
 
-		Math::Vector3 rayDir = m_mWorld.Translation() - m_prevPos;//
+		Math::Vector3 rayPos = m_prevPos;
 
-		RayInfo info(m_prevPos, rayDir, rayDir.Length());
+		Math::Vector3 rayDir = GetPos() - m_prevPos;//
+
+		RayInfo info(rayPos, rayDir, rayDir.Length());
 
 		BumpResult result;
 
 		spObj->CheckCollisionBump(info, result);
+
 		if(result.m_isHit)
 		{ 
-			//めり込んだ分を押し返す
-			m_mWorld *= Math::Matrix::CreateTranslation(result.m_pushVec);
-
 			m_isStabbed = true;
+
+			// めり込んだ分を押し返す
+				m_mWorld *= Math::Matrix::CreateTranslation(result.m_pushVec);
 		}
 	}
 }

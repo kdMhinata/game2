@@ -36,6 +36,8 @@ bool GameObject::CheckCollisionBump(const RayInfo& info, BumpResult& result)
 {
 	KdRayResult localResult;
 
+	float minDist = FLT_MAX;
+
 	for (UINT i = 0; i < m_modelWork.GetDataNodes().size(); i++) 
 	{
 		const KdModelData::Node& dataNode=m_modelWork.GetDataNodes()[i];
@@ -52,9 +54,11 @@ bool GameObject::CheckCollisionBump(const RayInfo& info, BumpResult& result)
 			workNode.m_worldTransform * m_mWorld,
 			&localResult);
 
-		if (localResult.m_hit)
+		if (localResult.m_hit&&localResult.m_distance<minDist)
 		{
 			result.m_pushVec = info.m_dir * (localResult.m_distance - info.m_range);
+
+			minDist = localResult.m_distance;
 		}
 
 	}
