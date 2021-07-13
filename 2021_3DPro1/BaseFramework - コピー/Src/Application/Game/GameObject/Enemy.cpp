@@ -6,6 +6,8 @@ void Enemy::Init()
 	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/Robot/WoodRobot.gltf"));
 	
 	m_radius = 0.5f;
+
+	m_worldPos.x = 2.0f;
 }
 
 void Enemy::Update()

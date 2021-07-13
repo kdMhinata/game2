@@ -103,6 +103,11 @@ void KdEffectShader::DrawModel(const KdModelWork& rModel, const Math::Matrix& mW
 	}
 }
 
+void DrawSquarePolygon(const KdSquarePolygon& rSquarePolygon, const Math::Matrix& mWorld = Math::Matrix::Identity, int textureIndex = 0)
+{
+	//頂点レイアウトをセット
+}
+
 bool KdEffectShader::Init()
 {
 	//-------------------------------------

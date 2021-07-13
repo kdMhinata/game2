@@ -21,6 +21,10 @@ public:
 	classID GetClassID() const override { return ePlayer; }
 
 private:
+
+	//	歩いて超えられる限界の高さ
+	static const float s_limitOfStepHeight;
+
 	void Release();		// 解放
 
 	void UpdateMove(Math::Vector3& dstMove);
@@ -33,10 +37,13 @@ private:
 
 	Math::Vector3	m_worldPos;		// ワールド行列を作るための座標
 	Math::Vector3	m_worldRot;		// ワールド行列を作るための回転
+	Math::Vector3   m_prevPos;		// 1フレーム前の座標
+
 
 	std::shared_ptr<TPSCamera>		m_spCamera;
 	
 	bool m_canShot = true;
+	bool m_canJump = true;
 
 	float m_gravity = 0.0f;
 };

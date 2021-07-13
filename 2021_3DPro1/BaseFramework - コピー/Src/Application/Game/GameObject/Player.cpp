@@ -4,6 +4,8 @@
 #include"Arrow.h"
 #include"../GameSystem.h"
 
+const float Player::s_limitOfStepHeight = 0.5f;
+
 Player::Player()
 {
 }
@@ -43,6 +45,9 @@ void Player::Init()
 // 更新処理
 void Player::Update()
 {
+	m_gravity += 0.01f;
+	m_prevPos = GetPos();
+
 	Math::Vector3 vMove;
 
 	// 移動の更新処理
@@ -50,6 +55,17 @@ void Player::Update()
 
 	// 回転の更新処理
 	UpdateRotate(vMove);
+
+	if (GetAsyncKeyState(VK_SPACE)) 
+	{
+		if (m_canJump)
+		{
+			m_gravity = -0.5f;
+			m_canJump = false;
+		}
+	}
+
+	m_worldPos.y -= m_gravity;
 
 	// 当たり判定更新
 	UpdateCollition();
@@ -178,6 +194,29 @@ void Player::UpdateCollition()
 			m_worldPos += result.m_pushVec;
 		}
 	}
+
+	for (const std::shared_ptr<GameObject>& spObject : GameSystem::GetInstance().GetObjects())
+	{
+		if (spObject->GetClassID() != GameObject::eStage) { continue; }
+
+		Math::Vector3 rayPos = m_prevPos;
+		//　歩いて移動できる地面の限界の段差
+		rayPos.y += s_limitOfStepHeight;
+
+		RayInfo rayInfo(rayPos, Math::Vector3(0.0f, -1.0f, 0.0f), m_gravity+s_limitOfStepHeight);
+
+		BumpResult bumpResult;
+
+		spObject->CheckCollisionBump(rayInfo, bumpResult);
+
+		if(bumpResult.m_isHit)
+		{
+			m_worldPos += bumpResult.m_pushVec;
+			m_gravity = 0.0f;
+			m_canJump = true;
+		}
+	}
+
 }
 
 void Player::ShotArrow()

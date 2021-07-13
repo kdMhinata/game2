@@ -56,6 +56,7 @@ bool GameObject::CheckCollisionBump(const RayInfo& info, BumpResult& result)
 
 		if (localResult.m_hit&&localResult.m_distance<minDist)
 		{
+			result.m_isHit = localResult.m_hit;
 			result.m_pushVec = info.m_dir * (localResult.m_distance - info.m_range);
 
 			minDist = localResult.m_distance;
