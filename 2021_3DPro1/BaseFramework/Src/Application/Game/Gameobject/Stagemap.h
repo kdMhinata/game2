@@ -1,19 +1,17 @@
 ﻿#pragma once
 
-class StageMap
+#include"GameObject.h"
+
+class StageMap : public GameObject
 {
 public:
-	StageMap();
-	~StageMap();
+	StageMap() {}
+	~StageMap() { Release(); }
 
-	void Init();
-	void Updata();
-	void Draw();
+	void Init() override;
+
+	classID GetClassID() const override { return eStage; }
 
 private:
-	void Release();
-	KdModelWork m_modelWork;
-
-	KdModelWork m_stage;
-	DirectX::SimpleMath::Matrix m_stageMat;
+	void Release();		// 解放
 };

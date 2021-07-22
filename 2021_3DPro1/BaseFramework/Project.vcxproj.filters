@@ -49,6 +49,9 @@
     <Filter Include="Src\Application\Game\Gameobject">
       <UniqueIdentifier>{6bd96b46-e420-4e09-97d3-b47589c95e5a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Utility">
+      <UniqueIdentifier>{a27ce5c0-1fb2-4450-add2-a9371ab18d50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -135,6 +138,12 @@
     <ClInclude Include="Src\Application\Game\Gameobject\Stagemap.h">
       <Filter>Src\Application\Game\Gameobject</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Game\Gameobject\GameObject.h">
+      <Filter>Src\Application\Game\Gameobject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Utility\ResourceFactory.h">
+      <Filter>Src\Application\Utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -202,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Game\Gameobject\Stagemap.cpp">
       <Filter>Src\Application\Game\Gameobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\Gameobject\GameObject.cpp">
+      <Filter>Src\Application\Game\Gameobject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Utility\ResourceFactory.cpp">
+      <Filter>Src\Application\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
