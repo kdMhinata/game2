@@ -165,6 +165,9 @@
     <ClInclude Include="Src\Application\Application.h">
       <Filter>Src\Application</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Game\GameObject\Effect2D.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -253,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Utility\ResourceFactory.cpp">
       <Filter>Src\Application\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\GameObject\Effect2D.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

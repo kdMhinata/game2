@@ -15,6 +15,11 @@ public:
 
 	classID GetClassID() const override{ return eEnemy; }
 
+	void SetPos(const Math::Vector3& pos) override
+	{
+		m_worldPos = pos;
+	}
+
 private:
 
 	void Release();

@@ -3,6 +3,7 @@
 #include"GameObject/Player.h"
 #include"GameObject/Enemy.h"
 #include"GameObject/Arrow.h"
+#include"GameObject/Effect2D.h"
 
 #include"Camera/TPSCamera.h"
 
@@ -11,11 +12,6 @@
 void GameSystem::Init()
 {
 	m_sky.SetModel(m_resourceFactory.GetModelData("Data/Models/Sky/Sky.gltf"));
-
-	m_cube.SetModel(m_resourceFactory.GetModelData("Data/Models/Cube/Cube2.gltf"));
-
-	// キューブの座標行列
-	m_cubeMat = m_cubeMat.CreateTranslation({ 1.0f,0.0f,0.0f });
 
 	// スカイスフィア拡大行列
 	m_skyMat = m_skyMat.CreateScale(50.0f);
@@ -33,6 +29,14 @@ void GameSystem::Init()
 	spEnemy->Init();
 	AddObject(spEnemy);
 	spEnemy->SetTarget(spPlayer);
+
+	std::shared_ptr<Effect2D> spEffect = std::make_shared<Effect2D>();
+
+	spEffect->Init();
+
+	spEffect->SetAnimation(5, 5);
+
+	AddObject(spEffect);
 }
 
 void GameSystem::Update()
@@ -88,7 +92,6 @@ void GameSystem::Update()
 		
 		++objectItr;
 	}
-	
 }
 
 void GameSystem::Draw()
@@ -98,20 +101,38 @@ void GameSystem::Draw()
 		m_spCamera->SetToShader();
 	}
 
-	SHADER->m_effectShader.SetToDevice();	// 描画前に必要
-
-	SHADER->m_effectShader.DrawModel(m_sky,m_skyMat);
-
 	// 陰影をつける
 	SHADER->m_standardShader.SetToDevice();
 
-	SHADER->m_standardShader.DrawModel(m_cube,m_cubeMat);
-
-	
 	for (std::shared_ptr<GameObject>& spObject : m_spObjects)
 	{
 		spObject->Draw();
 	}
+
+	SHADER->m_effectShader.SetToDevice();	// 描画前に必要
+
+	SHADER->m_effectShader.DrawModel(m_sky,m_skyMat);
+
+	{
+		D3D.WorkDevContext()->OMSetDepthStencilState(SHADER->m_ds_ZEnable_ZWriteDisable, 0);
+
+		D3D.WorkDevContext()->RSSetState(SHADER->m_rs_CullNone); // カリングなし
+
+		//透明物の描画
+		for (std::shared_ptr<GameObject>& spObject : m_spObjects)
+		{
+			spObject->DrawEffect();
+		}
+
+		D3D.WorkDevContext()->OMSetDepthStencilState(SHADER->m_ds_ZEnable_ZWriteEnable, 0);
+
+		D3D.WorkDevContext()->RSSetState(SHADER->m_rs_CullBack);
+	}
+}
+
+const std::shared_ptr<KdCamera> GameSystem::GetCamera() const
+{
+	return m_spCamera;
 }
 
 void GameSystem::Release()

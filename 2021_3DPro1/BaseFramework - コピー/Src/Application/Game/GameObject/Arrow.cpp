@@ -1,9 +1,11 @@
 ﻿#include"Arrow.h"
 #include"Enemy.h"
+#include"Effect2D.h"
+
 
 void Arrow::Init()
 {
-	m_modelWork.SetModel(GameResourceFactory.GetModelData("C:Data/Models/Arrow/Arrow.gltf"));
+	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/Arrow/Arrow.gltf"));
 	
 	m_lifeSpan = 120;
 
@@ -140,6 +142,16 @@ void Arrow::UpdateCollition()
 
 			// めり込んだ分を押し返す
 				m_mWorld *= Math::Matrix::CreateTranslation(result.m_pushVec);
+
+				//爆発
+				std::shared_ptr<Effect2D> spEffect = std::make_shared<Effect2D>();
+
+				spEffect->Init();
+				spEffect->SetAnimation(5, 5);
+				spEffect->SetPos(GetPos());
+				spEffect->SetTexture(GameResourceFactory.GetTexture("Data/Textures/Explosion.png"));
+
+				GameInstance.AddObject(spEffect);
 		}
 	}
 }

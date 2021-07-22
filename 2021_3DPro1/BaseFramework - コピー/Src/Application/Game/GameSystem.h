@@ -23,12 +23,11 @@ public:
 
 	ResourceFactory& WorkResourceFactory() { return m_resourceFactory; }
 
+	const std::shared_ptr<KdCamera> GetCamera() const;
 private:
 	void Release();		// 解放
 
 	KdModelWork m_sky;	// スカイスフィア
-
-	KdModelWork m_cube;	// キューブ
 
 	DirectX::SimpleMath::Matrix m_cubeMat;	// キューブのワールド行列
 	DirectX::SimpleMath::Matrix m_skyMat;	// キューブのワールド行列
@@ -54,5 +53,7 @@ private:
 	GameSystem() {}	
 	~GameSystem() { Release(); }
 };
+
+#define GameInstance GameSystem::GetInstance() 
 
 #define GameResourceFactory GameSystem::GetInstance().WorkResourceFactory()

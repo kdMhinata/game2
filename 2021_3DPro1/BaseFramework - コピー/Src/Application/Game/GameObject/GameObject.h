@@ -50,7 +50,15 @@ public:
 
 	virtual void Init(){}
 	virtual void Update(){}
-	void Draw();
+	virtual void Draw();
+	virtual void DrawEffect() {}
+
+	void Destroy() {}
+
+	virtual void SetPos(const Math::Vector3& pos)
+	{
+		m_mWorld.Translation(pos);
+	}
 
 	bool IsAlive() { return m_isAlive; }
 

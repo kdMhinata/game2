@@ -103,10 +103,18 @@ void KdEffectShader::DrawModel(const KdModelWork& rModel, const Math::Matrix& mW
 	}
 }
 
-void DrawSquarePolygon(const KdSquarePolygon& rSquarePolygon, const Math::Matrix& mWorld = Math::Matrix::Identity, int textureIndex = 0)
+void KdEffectShader::DrawSquarePolygon(const KdSquarePolygon& rSquarePolygon, const Math::Matrix& mWorld, int textureIndex)
 {
-	//頂点レイアウトをセット
+	D3D.WorkDevContext()->IASetInputLayout(m_inputLayout);
+
+	m_cb1_Material.Work().BaseColor = kWhiteColor;
+
+	SetWorldMatrix(mWorld);
+	WriteToCB();
+
+	rSquarePolygon.Draw(textureIndex);
 }
+
 
 bool KdEffectShader::Init()
 {

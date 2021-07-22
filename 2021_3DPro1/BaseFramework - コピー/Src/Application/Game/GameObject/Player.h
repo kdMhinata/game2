@@ -17,6 +17,11 @@ public:
 	std::shared_ptr<TPSCamera> WorkCamera() { return m_spCamera; }				// ïœçXóp
 
 	const Math::Vector3 GetPos() const override{ return m_worldPos; }
+	void SetPos(const Math::Vector3& pos) override
+	{
+		m_worldPos = pos;
+		m_prevPos = pos;
+	}
 
 	classID GetClassID() const override { return ePlayer; }
 
