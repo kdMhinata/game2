@@ -52,6 +52,7 @@ public:
 	virtual void Update(){}
 	virtual void Draw();
 	virtual void DrawEffect() {}
+	virtual void Draw2D() {}
 
 	void Destroy() {}
 

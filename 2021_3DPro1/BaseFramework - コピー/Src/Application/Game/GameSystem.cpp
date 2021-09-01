@@ -128,6 +128,12 @@ void GameSystem::Draw()
 
 		D3D.WorkDevContext()->RSSetState(SHADER->m_rs_CullBack);
 	}
+
+	SHADER->m_spriteShader.Begin();
+
+	SHADER->m_spriteShader.End();
+
+
 }
 
 const std::shared_ptr<KdCamera> GameSystem::GetCamera() const
