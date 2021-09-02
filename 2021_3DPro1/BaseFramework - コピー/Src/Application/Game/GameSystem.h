@@ -7,6 +7,10 @@ class GameSystem
 {
 public:
 
+	void TitleInit();
+	void GameInit();
+	void ResultInit();
+
 	void Init();
 	void Update();
 	void Draw();

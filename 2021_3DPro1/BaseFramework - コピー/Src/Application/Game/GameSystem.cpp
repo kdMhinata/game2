@@ -9,6 +9,49 @@
 
 #include"../main.h";
 
+void GameSystem::TitleInit()
+{//背景のスプライト描画用GameObject
+	//ゲームシーンに推移するためのボタンObject
+}
+
+
+void GameSystem::GameInit()
+{
+	//前のシーンにあった情報は解放して何もない状態にする
+	Release();
+	m_sky.SetModel(m_resourceFactory.GetModelData("Data/Models/Sky/Sky.gltf"));
+
+	// スカイスフィア拡大行列
+	m_skyMat = m_skyMat.CreateScale(50.0f);
+
+
+	std::shared_ptr<StageMap> spStage = std::make_shared<StageMap>(); // stageMapのインスタンス化
+	spStage->Init();
+	AddObject(spStage);
+
+	std::shared_ptr<Player> spPlayer = std::make_shared<Player>();	// プレイヤーのインスタンス化
+	spPlayer->Init();
+	AddObject(spPlayer);
+
+	std::shared_ptr<Enemy> spEnemy = std::make_shared<Enemy>();
+	spEnemy->Init();
+	AddObject(spEnemy);
+	spEnemy->SetTarget(spPlayer);
+
+	std::shared_ptr<Effect2D> spEffect = std::make_shared<Effect2D>();
+
+	spEffect->Init();
+
+	spEffect->SetAnimation(5, 5);
+
+	AddObject(spEffect);
+}
+
+void GameSystem::ResultInit()
+{
+	
+}
+
 void GameSystem::Init()
 {
 	m_sky.SetModel(m_resourceFactory.GetModelData("Data/Models/Sky/Sky.gltf"));
