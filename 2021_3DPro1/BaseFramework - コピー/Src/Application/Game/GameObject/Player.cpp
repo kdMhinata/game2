@@ -17,7 +17,7 @@ Player::~Player()
 
 void Player::Init()
 {
-	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/Robot/Robot.gltf"));
+	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/SkinMeshMan/SkinMeshMan.gltf"));
 
 	m_spCamera = std::make_shared<TPSCamera>();
 
@@ -40,6 +40,10 @@ void Player::Init()
 	m_spCamera->SetRotationSpeed(0.25);
 
 	m_radius = 0.5f;
+
+	m_animator.SetAnimation(m_modelWork.GetData()->GetAnimation("Walk"));
+
+	
 }
 
 // 更新処理
@@ -85,6 +89,10 @@ void Player::Update()
 		// プレイヤーの絶対行列のセット
 		m_spCamera->SetCameraMatrix(trans);
 	}
+
+	m_animator.AdvanceTime(m_modelWork.WorkNodes());
+
+	m_modelWork.CalcNodeMatrices();
 }
 
 void Player::Release()
