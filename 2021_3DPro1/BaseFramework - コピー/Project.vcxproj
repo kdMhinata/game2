@@ -154,6 +154,7 @@
     <ClInclude Include="Src\Application\Game\GameObject\Enemy.h" />
     <ClInclude Include="Src\Application\Game\GameObject\GameObject.h" />
     <ClInclude Include="Src\Application\Game\GameObject\Player.h" />
+    <ClInclude Include="Src\Application\Game\GameObject\Scene\TitleObject\TitleObject.h" />
     <ClInclude Include="Src\Application\Game\GameObject\StageMap.h" />
     <ClInclude Include="Src\Application\Game\GameSystem.h" />
     <ClInclude Include="Src\Application\main.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Src\Application\Game\GameObject\Enemy.cpp" />
     <ClCompile Include="Src\Application\Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Src\Application\Game\GameObject\Player.cpp" />
+    <ClCompile Include="Src\Application\Game\GameObject\Scene\TitleObject\TitleObject.cpp" />
     <ClCompile Include="Src\Application\Game\GameObject\StageMap.cpp" />
     <ClCompile Include="Src\Application\Game\GameSystem.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />

@@ -52,6 +52,33 @@ private:
 	bool m_canShot = true;
 	bool m_canJump = true;
 
+	void ChangeWait()
+	{
+		m_spActionState = std::make_shared<ActionWait>();
+	}
+	void ChangeMove();
+	void ChangeJump();
 	float m_gravity = 0.0f;
+
+	class BaseAction
+	{
+	public:
+		virtual void Update(Player& owner) = 0; //èÉêàâºëzä÷êî
+	};
+
+	class ActionWait : public BaseAction
+	{
+	public:
+		void Update(Player& owner) override;
+	};
+
+	class ActionMove : public BaseAction
+	{
+	public:
+		void Update(Player& owner) override;
+	};
+
+	std::shared_ptr<BaseAction> m_spActionState =nullptr;
+
 };
 

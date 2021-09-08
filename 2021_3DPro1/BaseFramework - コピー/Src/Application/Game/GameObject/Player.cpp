@@ -43,6 +43,8 @@ void Player::Init()
 
 	m_animator.SetAnimation(m_modelWork.GetData()->GetAnimation("Walk"));
 
+	m_spActionState = std::make_shared<ActionWait>();
+
 	
 }
 
@@ -52,13 +54,8 @@ void Player::Update()
 	m_gravity += 0.01f;
 	m_prevPos = GetPos();
 
-	Math::Vector3 vMove;
-
-	// 移動の更新処理
-	UpdateMove(vMove);
-
-	// 回転の更新処理
-	UpdateRotate(vMove);
+	if(m_spActionState)
+	m_spActionState->Update(*this);
 
 	if (GetAsyncKeyState(VK_SPACE)) 
 	{
@@ -273,3 +270,32 @@ void Player::ShotArrow()
 	else { m_canShot = true; }
 }
 
+void Player::ActionWait::Update(Player& owner)
+{
+	//移動キーが押された？
+	if (GetAsyncKeyState('W')) { owner.m_spActionState = std::make_shared<ActionMove>(); }
+
+	//ジャンプキー押された？
+
+}
+
+
+void Player::ActionMove::Update(Player& owner)
+{
+	//移動キーが押されていない？
+	if (!GetAsyncKeyState('W')) { owner.m_spActionState = std::make_shared<ActionWait>(); }
+
+	Math::Vector3 vMove;
+
+	// 移動の更新処理
+	owner.UpdateMove(vMove);
+
+	// 回転の更新処理
+	owner.UpdateRotate(vMove);
+
+	//vmovenの長さが0だったら移動してないとみなす
+	if (vMove.LengthSquared() == 0)
+	{
+		owner.ChangeWait();
+	}
+}
