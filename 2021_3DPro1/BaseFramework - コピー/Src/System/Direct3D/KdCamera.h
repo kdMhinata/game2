@@ -6,13 +6,13 @@
 class KdCamera
 {
 public:
-	// コンストラクター　オーナーの設定と射影行列の作成
+	// コンストラクター
 	KdCamera() {}
 
 	~KdCamera() {}
 
 	void SetProjectionMatrix(float fov, float maxRange = 2000, float minRange = 0.01f, float aspectRatio = D3D.WorkBackBuffer()->GetAspectRatio());
-	void SetProjectionMatrix(const DirectX::SimpleMath::Matrix& rProj) { m_mProj = rProj; m_dirtyProj = true; }
+	void SetProjectionMatrix(const DirectX::SimpleMath::Matrix& rProj) { m_mProj = rProj; }
 
 	// カメラ行列取得
 	inline const DirectX::SimpleMath::Matrix& GetCameraMatrix() const { return m_mCam; }
@@ -27,9 +27,10 @@ public:
 	virtual void SetCameraMatrix(const DirectX::SimpleMath::Matrix& mCam);
 
 	// カメラ情報(ビュー・射影行列など)をシェーダへセット
-	void SetToShader();
+	void SetToShader() const;
 
-	DirectX::SimpleMath::Matrix& WorkCamera();
+	const DirectX::SimpleMath::Matrix& GetCamera() { return m_mCam; }
+	DirectX::SimpleMath::Matrix& WorkCamera() { return m_mCam; }
 
 protected:
 
@@ -39,8 +40,4 @@ protected:
 	DirectX::SimpleMath::Matrix	m_mView;
 	// 射影行列
 	DirectX::SimpleMath::Matrix	m_mProj;
-
-private:
-	bool m_dirtyCam = false;
-	bool m_dirtyProj = false;
 };

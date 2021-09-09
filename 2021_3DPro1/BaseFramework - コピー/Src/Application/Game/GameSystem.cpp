@@ -52,38 +52,6 @@ void GameSystem::GameInit()
 	//AudioEngin初期化
 	DirectX::AUDIO_ENGINE_FLAGS eflags =
 		DirectX::AudioEngine_EnvironmentalReverb | DirectX::AudioEngine_ReverbUseFilters;
-
-	m_audioEng = std::make_unique<DirectX::AudioEngine>(eflags);
-	m_audioEng->SetReverb(DirectX::Reverb_Default);
-
-	//BGMデータファイルのLoad
-	//※wstringに変換 const charは受け取ってもらえない
-	std::wstring wFilename = sjis_to_wide("Data/Audio/BGM/castle.wav");
-
-	//0番に読み込み
-	std::unique_ptr<DirectX::SoundEffect> soundEffect=
-		std::make_unique<DirectX::SoundEffect>(m_audioEng.get(),wFilename.c_str() );
-	m_soundEffect.push_back(std::move(soundEffect));
-
-	wFilename = sjis_to_wide("Data/Audio/SE/ItemGet.wav");
-	//1番に読み込み
-	std::make_unique<DirectX::SoundEffect>(m_audioEng.get(), wFilename.c_str());
-	m_soundEffect.push_back(std::make_unique<DirectX::SoundEffect>(m_audioEng.get(),wFilename.c_str()));
-				
-	//サウンド(BGM)再生用Instanceの作成
-	if (m_soundEffect[0] != nullptr)
-	{
-		DirectX::SOUND_EFFECT_INSTANCE_FLAGS flags = DirectX::SoundEffectInstance_Default;
-		std::unique_ptr<DirectX::SoundEffectInstance> instance =
-			m_soundEffect[0]->CreateInstance(flags);
-
-		if (instance)
-		{
-			instance->Play();
-
-			m_instance.push_back(std::move(instance));
-		}
-	}
 }
 
 void GameSystem::ResultInit()
@@ -97,6 +65,8 @@ void GameSystem::Init()
 	GameInit();
 
 	//TitleInit();
+	
+	m_audioManager.Init();
 }
 
 void GameSystem::Update()
@@ -115,20 +85,7 @@ void GameSystem::Update()
 
 	if (GetAsyncKeyState(VK_TAB))
 	{
-		//サウンド(BGM)再生用Instanceの作成
-		if (m_soundEffect[1] != nullptr)
-		{
-			DirectX::SOUND_EFFECT_INSTANCE_FLAGS flags = DirectX::SoundEffectInstance_Default;
-			std::unique_ptr<DirectX::SoundEffectInstance> instance =
-				m_soundEffect[1]->CreateInstance(flags);
-
-			if (instance)
-			{
-				instance->Play();
-
-				m_instance.push_back(std::move(instance));
-			}
-		}
+		m_audioManager.Play3D("Data/Audio/SE/ItemGet.wav",Math::Vector3::Left*2.0f);
 	}
 
 	/*if (m_isRequestChangeScene)
@@ -175,6 +132,17 @@ void GameSystem::Update()
 		}
 		
 		++objectItr;
+	}
+	
+	//サウンド関連の更新
+	{
+		Math::Matrix listenerMat;
+
+		if(m_spCamera)
+		{
+			listenerMat = m_spCamera->GetCameraMatrix();
+		}
+		m_audioManager.Update(listenerMat.Translation() ,listenerMat.Backward());
 	}
 }
 
@@ -227,5 +195,6 @@ const std::shared_ptr<KdCamera> GameSystem::GetCamera() const
 
 void GameSystem::Release()
 {
+	m_audioManager.StopAllSound();
 	m_spObjects.clear();
 }

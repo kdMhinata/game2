@@ -42,14 +42,8 @@ private:
 
 	ResourceFactory m_resourceFactory;
 
-	//サウンドエンジン
-	std::unique_ptr<DirectX::AudioEngine> m_audioEng = nullptr;
-
-	//再生サウンドの元データ
-	std::vector<std::unique_ptr<DirectX::SoundEffect>> m_soundEffect;
-
-	//サウンドの再生インスタンス
-	std::vector < std::unique_ptr<DirectX::SoundEffectInstance>> m_instance;
+	//オーディオ管理クラス
+	KdAudioManager m_audioManager;
 
 	// シングルトンパターン化
 public:
