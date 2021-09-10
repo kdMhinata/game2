@@ -74,6 +74,8 @@ public:
 	//四角ポリゴン描画
 	void DrawSquarePolygon(const KdSquarePolygon& rSquarePolygon, const Math::Matrix& mWorld = Math::Matrix::Identity, int textureIndex = 0);
 
+	void DrawTrailPolygon(const KdTrailPolygon& rTrailPolygon,int textureIndex=0);
+
 	//================================================
 	// 
 	//================================================

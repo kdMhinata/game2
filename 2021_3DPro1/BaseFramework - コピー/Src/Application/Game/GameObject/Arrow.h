@@ -11,6 +11,8 @@ public:
 	void Init() override;
 	void Update() override;
 
+	void DrawEffect() override;
+
 	void SetTarget(const std::shared_ptr<const GameObject> spTarget) { m_wpTarget = spTarget; }
 
 	void SetWorldMatrix(const Math::Matrix& world) { m_mWorld = world; }
@@ -33,4 +35,6 @@ private:
 	bool	m_isStabbed = false;
 
 	Math::Vector3		m_prevPos;	// 1フレーム前の座標格納用
+
+	KdTrailPolygon m_trail;
 };

@@ -10,6 +10,8 @@ void Arrow::Init()
 	m_lifeSpan = 120;
 
 	m_radius = 0.5f;
+
+	m_trail.SetTexture(GameResourceFactory.GetTexture("Data/Textures/Trail.png"));
 }
 
 void Arrow::Update()
@@ -41,6 +43,13 @@ void Arrow::Update()
 
 	// 当たり判定更新
 	UpdateCollition();
+
+	m_trail.AddPoint(m_mWorld);
+}
+
+void Arrow::DrawEffect()
+{
+	SHADER->m_effectShader.DrawTrailPolygon(m_trail);
 }
 
 void Arrow::Release()
@@ -63,8 +72,12 @@ void Arrow::RotateByGuide()
 	// ①自分の向いている方向
 	Math::Vector3 nowDir = m_mWorld.Backward();
 
+	//追加
+	Math::Vector3 targetPos = spTarget->GetPos();
+	targetPos.y += 1.0f;
+
 	// ②ターゲットの方向
-	Math::Vector3 targetDir = spTarget->GetPos() - m_mWorld.Translation();
+	Math::Vector3 targetDir = targetPos -m_mWorld.Translation();
 
 	nowDir.Normalize();
 	targetDir.Normalize();

@@ -115,6 +115,18 @@ void KdEffectShader::DrawSquarePolygon(const KdSquarePolygon& rSquarePolygon, co
 	rSquarePolygon.Draw(textureIndex);
 }
 
+void KdEffectShader::DrawTrailPolygon(const KdTrailPolygon& rTrailPolygon, int textureIndex)
+{
+	D3D.WorkDevContext()->IASetInputLayout(m_inputLayout);
+
+	m_cb1_Material.Work().BaseColor = kWhiteColor;
+
+	SetWorldMatrix(Math::Matrix::Identity);
+	WriteToCB();
+
+	rTrailPolygon.Draw(textureIndex);
+}
+
 
 bool KdEffectShader::Init()
 {

@@ -190,16 +190,17 @@ void Player::UpdateMatrix()
 void Player::UpdateDebug()
 {
 	if (!m_spDebugObject) { return; }
-	/*
+	
 	//出バグラインを登録する
 	Math::Vector3 localEndPos = GetPos();
 	localEndPos.y += 10.0f;
 	m_spDebugObject->AddDebugLine(GetPos(), localEndPos);
-	*/
+	
 
-	//デバッグスフィアを描画する
+	/*//デバッグスフィアを描画する
 	Math::Vector3 localSpherePos = GetPos() + m_bumpSphereInfo, m_pos;
 	m_spDebugObject->AddDebugSphere(localSpherePos,m_bumpSphereInfo)
+	*/
 }
 
 // 当たり判定の更新
