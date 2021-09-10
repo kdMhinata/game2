@@ -3,6 +3,7 @@
 #include"../Camera/TPSCamera.h"
 #include"Arrow.h"
 #include"../GameSystem.h"
+#include "Src/Application/Utility/DebugObject/DebugObject.h"
 
 const float Player::s_limitOfStepHeight = 0.5f;
 
@@ -45,7 +46,9 @@ void Player::Init()
 
 	m_spActionState = std::make_shared<ActionWait>();
 
-	
+	//デバッグObjectのインスタンス化
+	m_spDebugObject = std::make_shared<DebugObject>();
+		
 }
 
 // 更新処理
@@ -90,6 +93,8 @@ void Player::Update()
 	m_animator.AdvanceTime(m_modelWork.WorkNodes());
 
 	m_modelWork.CalcNodeMatrices();
+
+	UpdateDebug();
 }
 
 void Player::Release()
@@ -180,6 +185,21 @@ void Player::UpdateMatrix()
 	rotation = Math::Matrix::CreateRotationY(DirectX::XMConvertToRadians(m_worldRot.y));
 
 	m_mWorld = rotation * trans;
+}
+
+void Player::UpdateDebug()
+{
+	if (!m_spDebugObject) { return; }
+	/*
+	//出バグラインを登録する
+	Math::Vector3 localEndPos = GetPos();
+	localEndPos.y += 10.0f;
+	m_spDebugObject->AddDebugLine(GetPos(), localEndPos);
+	*/
+
+	//デバッグスフィアを描画する
+	Math::Vector3 localSpherePos = GetPos() + m_bumpSphereInfo, m_pos;
+	m_spDebugObject->AddDebugSphere(localSpherePos,m_bumpSphereInfo)
 }
 
 // 当たり判定の更新

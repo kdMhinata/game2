@@ -1,4 +1,5 @@
 ﻿#include "GameObject.h"
+#include "Application/Utility/DebugObject/DebugObject.h"
 
 void GameObject::Draw()
 {
@@ -30,6 +31,12 @@ bool GameObject::CheckCollisionBump(const SphereInfo& info, BumpResult& result)
 		result.m_pushVec *= hitRadius - distance;
 	}
 	return result.m_isHit;
+}
+
+void GameObject::DrawDebug()
+{
+	if (!m_spDebugObject) { return; }
+	m_spDebugObject->DrawDebug();
 }
 
 bool GameObject::CheckCollisionBump(const RayInfo& info, BumpResult& result)

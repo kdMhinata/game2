@@ -36,6 +36,8 @@ private:
 	void UpdateRotate(const Math::Vector3& srcMove);
 	void UpdateMatrix();
 
+	void UpdateDebug();
+
 	void UpdateCollition();		// “–‚½‚è”»’è‚ÌXV
 
 	void ShotArrow();

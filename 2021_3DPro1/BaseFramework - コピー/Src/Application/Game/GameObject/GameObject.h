@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+//前方宣言
+class DebugObject;
 // 球の情報
 struct SphereInfo
 {
@@ -67,6 +69,8 @@ public:
 
 	virtual classID GetClassID() const { return eBase; }
 
+	virtual void DrawDebug();
+
 	// 押し戻しの衝突判定
 	bool CheckCollisionBump(const SphereInfo& info, BumpResult& result);
 	// オブジェクト同士の衝突判定
@@ -81,6 +85,9 @@ protected:
 	bool			m_isAlive = true;
 
 	float			m_radius = 0.0f;
+
+	//デバッグObject
+	std::shared_ptr<DebugObject> m_spDebugObject = nullptr;
 
 private:
 	void Release() {}

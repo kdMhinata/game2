@@ -158,6 +158,7 @@
     <ClInclude Include="Src\Application\Game\GameObject\StageMap.h" />
     <ClInclude Include="Src\Application\Game\GameSystem.h" />
     <ClInclude Include="Src\Application\main.h" />
+    <ClInclude Include="Src\Application\Utility\DebugObject\DebugObject.h" />
     <ClInclude Include="Src\Application\Utility\ResourceFactory.h" />
     <ClInclude Include="Src\System\Audio\KdAudio.h" />
     <ClInclude Include="Src\System\Direct3D\KdCamera.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Src\Application\Game\GameObject\StageMap.cpp" />
     <ClCompile Include="Src\Application\Game\GameSystem.cpp" />
     <ClCompile Include="Src\Application\main.cpp" />
+    <ClCompile Include="Src\Application\Utility\DebugObject\DebugObject.cpp" />
     <ClCompile Include="Src\Application\Utility\ResourceFactory.cpp" />
     <ClCompile Include="Src\System\Audio\KdAudio.cpp" />
     <ClCompile Include="Src\System\Direct3D\KdCamera.cpp" />

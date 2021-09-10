@@ -186,6 +186,34 @@ void GameSystem::Draw()
 	SHADER->m_spriteShader.End();
 
 
+	//デバッグライン描画
+	SHADER->m_effectShader.SetToDevice();
+	SHADER->m_effectShader.SetTexture(D3D.GetWhiteTex()->WorkSRView());
+	{
+		for (std::shared_ptr<GameObject>& spObject : m_spObjects)
+		{
+			spObject->DrawDebug();
+		}
+
+		/*std::vector<KdEffectShader::Vertex> debugLine;
+
+		//ライン開始地点の頂点情報
+		KdEffectShader::Vertex ver1;
+		ver1.Color = { 1.0f,1.0f,1.0f,1.0f };
+		ver1.UV = { 0.0f,0.0f };
+		ver1.Pos = { 0.0f,0.0f,0.0f };
+
+		KdEffectShader::Vertex ver2;
+		ver1.Color = { 1.0f,1.0f,1.0f,1.0f };
+		ver1.UV = { 0.0f,0.0f };
+		ver1.Pos = { 0.0f,10.0f,0.0f };
+
+		debugLine.push_back(ver1);
+		debugLine.push_back(ver2);
+
+		SHADER->m_effectShader.SetWorldMatrix(Math::Matrix());
+		SHADER->m_effectShader.DrawVertices(debugLine,D3D_PRIMITIVE_TOPOLOGY_LINELIST);*/
+	}
 }
 
 const std::shared_ptr<KdCamera> GameSystem::GetCamera() const
