@@ -114,7 +114,7 @@ void Player::UpdateMove(Math::Vector3& dstMove)
 	if (GetAsyncKeyState('S') & 0x8000) { moveVec.z -= 1.0f; }	// Œã‚ëˆÚ“®
 	if (GetAsyncKeyState('A') & 0x8000) { moveVec.x -= 1.0f; }	// ¶ˆÚ“®
 	if (GetAsyncKeyState('D') & 0x8000) { moveVec.x += 1.0f; }	// ‰EˆÚ“®
-
+	
 	// Î‚ßˆÚ“®‚É‚æ‚é‰Á‘¬‚ğ•â³
 	moveVec.Normalize();
 	moveVec *= moveSpd;
@@ -170,7 +170,7 @@ void Player::UpdateRotate(const Math::Vector3& srcMove)
 	}
 
 	// ‰ñ“]—Ê‘ã“ü
-	rotateAng = std::clamp(rotateAng, -8.0f, 8.0f);
+ 	rotateAng = std::clamp(rotateAng, -8.0f, 8.0f);
 	
 	m_worldRot.y += rotateAng;
 }

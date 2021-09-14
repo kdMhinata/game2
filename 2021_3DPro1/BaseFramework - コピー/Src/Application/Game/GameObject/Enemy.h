@@ -11,6 +11,8 @@ public:
 	void Init() override;
 	void Update() override;
 
+	void DrawEffect() override;
+
 	void SetTarget(std::shared_ptr<const GameObject> spTarget) { m_wpTarget = spTarget; }
 
 	classID GetClassID() const override{ return eEnemy; }
@@ -33,5 +35,7 @@ private:
 	std::weak_ptr<const GameObject> m_wpTarget;
 
 	float m_stopDist = 5.0f;
+
+	KdTrailPolygon m_trail;
 
 };

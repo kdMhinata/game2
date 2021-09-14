@@ -3,11 +3,15 @@
 
 void Enemy::Init()
 {
-	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/Robot/WoodRobot.gltf"));
+	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/Robot/Robocopter.gltf"));
 	
 	m_radius = 0.5f;
 
 	m_worldPos.x = 2.0f;
+
+	m_trail.SetTexture(GameResourceFactory.GetTexture("Data/Textures/Trail.png"));
+	m_trail.SetWidth(0.2f);
+	m_trail.SetPattern(KdTrailPolygon::Trail_Pattern::eVertices);
 }
 
 void Enemy::Update()
@@ -25,6 +29,45 @@ void Enemy::Update()
 	);
 
 	m_mWorld = rotation * trans;
+
+	KdModelWork::Node* pNode = m_modelWork.FindWorkNode("Propeller");
+	KdModelWork::Node* pNodeTop1 = m_modelWork.FindWorkNode("Propeller_Top1");
+	KdModelWork::Node* pNodeTop2 = m_modelWork.FindWorkNode("Propeller_Top2");
+	KdModelWork::Node* pNodeTop3 = m_modelWork.FindWorkNode("Propeller_Top3");
+
+	if (pNode)
+	{
+		pNode->m_localTransform *= Math::Matrix::CreateRotationY(DirectX::XMConvertToRadians(15.0f));
+	}
+	m_modelWork.CalcNodeMatrices();
+
+	if (pNode)
+	{
+		Math::Matrix mCenter;
+		Math::Matrix mOuter;
+
+		mCenter = pNode->m_worldTransform * m_mWorld;// Math::Matrix::CreateTranslation(pNode->m_worldTransform.Translation())* m_mWorld;
+		mOuter = pNodeTop1->m_worldTransform * m_mWorld;// Math::Matrix::CreateTranslation(0, 0, 0.7f)* mCenter;
+
+//		Math::Vector3 vBetween = Math::Vector3::TransformNormal(Math::Vector3::Backward * 0.7, pNode->m_worldTransform);
+
+
+		m_trail.AddPoint(mCenter);
+		m_trail.AddPoint(mOuter);
+
+
+		if (m_trail.GetNumPoints() > 10)
+		{
+			m_trail.DelPoint_Back();
+			m_trail.DelPoint_Back();
+		}
+
+	}
+}
+
+void Enemy::DrawEffect()
+{
+	SHADER->m_effectShader.DrawTrailPolygon(m_trail);
 }
 
 void Enemy::Release()
