@@ -12,6 +12,8 @@ void Arrow::Init()
 	m_radius = 0.5f;
 
 	m_trail.SetTexture(GameResourceFactory.GetTexture("Data/Textures/Trail.png"));
+	m_trail.SetWidth(0.2f);
+	m_trail.SetPattern(KdTrailPolygon::Trail_Pattern::eBillboard);
 }
 
 void Arrow::Update()
@@ -45,6 +47,11 @@ void Arrow::Update()
 	UpdateCollition();
 
 	m_trail.AddPoint(m_mWorld);
+
+	if (m_trail.GetNumPoints() > 30)
+	{
+		m_trail.DelPoint_Back();
+	}
 }
 
 void Arrow::DrawEffect()

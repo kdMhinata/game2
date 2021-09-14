@@ -277,7 +277,7 @@ void Player::ShotArrow()
 		// ノードがあれば頭から
 		if (pNode)
 		{	// m_worldTransform … モデルの原点からのローカル行列
-			pArrow->SetWorldMatrix(m_mWorld * pNode->m_worldTransform);
+			pArrow->SetWorldMatrix(pNode->m_worldTransform* m_mWorld);
 		}
 		else
 		{
