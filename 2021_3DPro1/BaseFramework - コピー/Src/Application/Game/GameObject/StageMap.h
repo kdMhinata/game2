@@ -10,6 +10,7 @@ public:
 
 	void Init() override;
 	void Draw2D()override;
+	void Draw() override;
 
 	classID GetClassID() const override { return eStage; }
 

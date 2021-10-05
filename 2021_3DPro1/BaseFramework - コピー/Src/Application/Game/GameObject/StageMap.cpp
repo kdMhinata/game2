@@ -22,6 +22,19 @@ void StageMap::Draw2D()
 	SHADER->m_spriteShader.DrawTex(m_spSampleTex.get(),posX,posY);
 }
 
+void StageMap::Draw()
+{
+	static float u = 0;
+
+	u += 0.01f;
+
+	SHADER->m_standardShader.SetUVOffset(Math::Vector2(u,0));
+
+	SHADER->m_standardShader.DrawModel(m_modelWork, m_mWorld);
+
+	SHADER->m_standardShader.SetUVOffset(Math::Vector2::Zero)
+}
+
 void StageMap::Release()
 {
 }

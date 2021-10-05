@@ -11,7 +11,14 @@ public:
 	virtual ~Player() override;
 
 	void Init() override;
+	void Draw2D() override;
 	void Update() override;
+
+	//ターゲットObjectの設定
+	void SetTraget(std::shared_ptr<const GameObject>pTarget)
+	{
+		m_wpTarget = pTarget;
+	}
 
 	const std::shared_ptr<const TPSCamera> GetCamera() const { return m_spCamera; }	// 参照用
 	std::shared_ptr<TPSCamera> WorkCamera() { return m_spCamera; }				// 変更用
@@ -26,6 +33,8 @@ public:
 	classID GetClassID() const override { return ePlayer; }
 
 private:
+	std::weak_ptr<GameObject>  m_wpRideObj;
+	Math::Matrix m_mLocalFromRide; //乗物からの相対行列
 
 	//	歩いて超えられる限界の高さ
 	static const float s_limitOfStepHeight;
@@ -37,6 +46,9 @@ private:
 	void UpdateMatrix();
 
 	void UpdateDebug();
+	
+	void UpdatePosFromRideobj();
+	void UpdateLocalFromRide();
 
 	void UpdateCollition();		// 当たり判定の更新
 
@@ -45,11 +57,13 @@ private:
 	Math::Vector3	m_worldPos;		// ワールド行列を作るための座標
 	Math::Vector3	m_worldRot;		// ワールド行列を作るための回転
 	Math::Vector3   m_prevPos;		// 1フレーム前の座標
-
+	std::weak_ptr<const GameObject> m_wpTarget;
 
 	std::shared_ptr<TPSCamera>		m_spCamera;
 
 	KdAnimator m_animator;
+
+	std::shared_ptr<KdTexture> m_ScopeTex;
 	
 	bool m_canShot = true;
 	bool m_canJump = true;

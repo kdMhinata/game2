@@ -36,6 +36,18 @@ private:
 
 	float m_stopDist = 5.0f;
 
+	class TrailNode
+	{
+	public:
+		void Update();
+		void Draw();
+	private:
+		KdTrailPolygon m_trail;
+	};
+
+	std::list<std::shared_ptr<TrailNode>> m_trailList;
+
 	KdTrailPolygon m_trail;
 
+	KdModelWork::Node* m_proNodes[3];
 };

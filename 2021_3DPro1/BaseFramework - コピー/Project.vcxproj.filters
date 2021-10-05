@@ -58,6 +58,9 @@
     <Filter Include="Src\Application\Utility\DebugObject">
       <UniqueIdentifier>{dd39c4bc-593d-4000-91a7-3cd91dc2c6a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\Utility\Easing">
+      <UniqueIdentifier>{eac3262b-f6a5-4d29-a50a-58cfdf949cef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -177,6 +180,12 @@
     <ClInclude Include="Src\Application\Utility\DebugObject\DebugObject.h">
       <Filter>Src\Application\Utility\DebugObject</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\Game\GameObject\Lift.h">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\Utility\Easing\Easing.h">
+      <Filter>Src\Application\Utility\Easing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -274,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="Src\Application\Utility\DebugObject\DebugObject.cpp">
       <Filter>Src\Application\Utility\DebugObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Game\GameObject\Lift.cpp">
+      <Filter>Src\Application\Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\Utility\Easing\Easing.cpp">
+      <Filter>Src\Application\Utility\Easing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

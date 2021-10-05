@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Utility/Easing/Easing.h"
+
 // アプリケーションのリソース管理クラス
 #include"Utility/ResourceFactory.h"
 

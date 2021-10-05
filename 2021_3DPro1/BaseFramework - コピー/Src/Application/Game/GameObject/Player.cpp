@@ -48,7 +48,34 @@ void Player::Init()
 
 	//デバッグObjectのインスタンス化
 	m_spDebugObject = std::make_shared<DebugObject>();
+
+	m_ScopeTex = GameResourceFactory.GetTexture("Data/Textures/scope.png");
 		
+}
+
+void Player::Draw2D()
+{
+	if (!m_ScopeTex) { return; }
+	if (m_wpTarget.expired()) { return; }
+
+	std::shared_ptr<const GameObject> spTarget = m_wpTarget.lock();
+
+	Math::Vector3 _pos = Math::Vector3::Zero;
+	m_spCamera->ConvertWorldToScreenDetail(spTarget->GetPos(), _pos);
+
+	if (_pos.z >= 0)
+	{
+		SHADER->m_spriteShader.SetMatrix(Math::Matrix::Identity);
+		SHADER->m_spriteShader.DrawTex(m_ScopeTex.get(), _pos.x, _pos.y);
+	}
+
+/*	static int time = 0;
+
+	//s左右に揺れる
+	int x = static_cast<int>(sinf((2 * M_PI) / (5 * 60) * time) * 250 + 50);
+	SHADER->m_spriteShader.DrawBox(x, 0, 200, 200);
+
+	++time;*/
 }
 
 // 更新処理
@@ -56,6 +83,9 @@ void Player::Update()
 {
 	m_gravity += 0.01f;
 	m_prevPos = GetPos();
+
+	//乗ってるObjectを取得(実際に乗っていたら)
+	UpdatePosFromRideobj();
 
 	if(m_spActionState)
 	m_spActionState->Update(*this);
@@ -92,9 +122,12 @@ void Player::Update()
 
 	m_animator.AdvanceTime(m_modelWork.WorkNodes());
 
-	m_modelWork.CalcNodeMatrices();
+	m_modelWork.CalcNodeMatrices();	
 
 	UpdateDebug();
+
+	//プレイヤーから乗ってるObjectへの相対的な行列を作成する
+	UpdateLocalFromRide();
 }
 
 void Player::Release()
@@ -203,6 +236,26 @@ void Player::UpdateDebug()
 	*/
 }
 
+void Player::UpdatePosFromRideobj()
+{
+	std::shared_ptr<GameObject> m_rideObj = m_wpRideObj.lock();
+
+	if (m_rideObj)
+	{
+		m_worldPos = (m_mLocalFromRide * m_rideObj->GetMatrix()).Translation();
+	}
+}
+
+void Player::UpdateLocalFromRide()
+{
+	std::shared_ptr<GameObject> m_rideObj = m_wpRideObj.lock();
+	m_rideObj = m_wpRideObj.lock();
+	if (!m_rideObj) { return; }
+
+	Math::Matrix liftInv = m_rideObj->GetMatrix().Invert();
+	m_mLocalFromRide = m_mWorld * liftInv;
+}
+
 // 当たり判定の更新
 void Player::UpdateCollition()
 {
@@ -240,6 +293,7 @@ void Player::UpdateCollition()
 			m_worldPos += bumpResult.m_pushVec;
 			m_gravity = 0.0f;
 			m_canJump = true;
+			m_wpRideObj = spObject;
 		}
 	}
 

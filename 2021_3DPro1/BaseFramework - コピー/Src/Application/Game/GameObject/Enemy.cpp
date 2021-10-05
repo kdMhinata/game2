@@ -9,9 +9,13 @@ void Enemy::Init()
 
 	m_worldPos.x = 2.0f;
 
-	m_trail.SetTexture(GameResourceFactory.GetTexture("Data/Textures/Trail.png"));
-	m_trail.SetWidth(0.2f);
-	m_trail.SetPattern(KdTrailPolygon::Trail_Pattern::eVertices);
+		m_trail.SetTexture(GameResourceFactory.GetTexture("Data/Textures/Trail.png"));
+		m_trail.SetWidth(0.2f);
+		m_trail.SetPattern(KdTrailPolygon::Trail_Pattern::eVertices);
+
+	m_proNodes[0] = m_modelWork.FindWorkNode("Propeller_Top1");
+	m_proNodes[1] = m_modelWork.FindWorkNode("Propeller_Top2");
+	m_proNodes[2] = m_modelWork.FindWorkNode("Propeller_Top3");
 }
 
 void Enemy::Update()
@@ -31,9 +35,7 @@ void Enemy::Update()
 	m_mWorld = rotation * trans;
 
 	KdModelWork::Node* pNode = m_modelWork.FindWorkNode("Propeller");
-	KdModelWork::Node* pNodeTop1 = m_modelWork.FindWorkNode("Propeller_Top1");
-	KdModelWork::Node* pNodeTop2 = m_modelWork.FindWorkNode("Propeller_Top2");
-	KdModelWork::Node* pNodeTop3 = m_modelWork.FindWorkNode("Propeller_Top3");
+
 
 	if (pNode)
 	{
@@ -47,7 +49,7 @@ void Enemy::Update()
 		Math::Matrix mOuter;
 
 		mCenter = pNode->m_worldTransform * m_mWorld;// Math::Matrix::CreateTranslation(pNode->m_worldTransform.Translation())* m_mWorld;
-		mOuter = pNodeTop1->m_worldTransform * m_mWorld;// Math::Matrix::CreateTranslation(0, 0, 0.7f)* mCenter;
+		mOuter = m_proNodes[0]->m_worldTransform * m_mWorld;// Math::Matrix::CreateTranslation(0, 0, 0.7f)* mCenter;
 
 //		Math::Vector3 vBetween = Math::Vector3::TransformNormal(Math::Vector3::Backward * 0.7, pNode->m_worldTransform);
 

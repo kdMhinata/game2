@@ -66,6 +66,7 @@ public:
 	bool IsAlive() { return m_isAlive; }
 
 	virtual const Math::Vector3 GetPos() const { return m_mWorld.Translation(); }
+	const Math::Matrix GetMatrix() const { return m_mWorld; }
 
 	virtual classID GetClassID() const { return eBase; }
 

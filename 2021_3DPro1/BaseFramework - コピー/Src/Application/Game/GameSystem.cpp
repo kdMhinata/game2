@@ -5,6 +5,7 @@
 #include"GameObject/Arrow.h"
 #include"GameObject/Effect2D.h"
 #include"GameObject/Scene/TitleObject/TitleObject.h"
+#include"GameObject/Lift.h"
 
 #include"Camera/TPSCamera.h"
 
@@ -38,8 +39,11 @@ void GameSystem::GameInit()
 
 	std::shared_ptr<Enemy> spEnemy = std::make_shared<Enemy>();
 	spEnemy->Init();
-	AddObject(spEnemy);
 	spEnemy->SetTarget(spPlayer);
+	AddObject(spEnemy);
+
+	//プレイヤーのターゲット設定
+	spPlayer->SetTraget(spEnemy);
 
 	std::shared_ptr<Effect2D> spEffect = std::make_shared<Effect2D>();
 
@@ -48,6 +52,18 @@ void GameSystem::GameInit()
 	spEffect->SetAnimation(5, 5);
 
 	AddObject(spEffect);
+
+	//リフトのインスタンス化
+	std::shared_ptr<Lift> spLift = std::make_shared<Lift>();
+	spLift->Init();
+
+	Math::Vector3 start = Math::Vector3::Zero, end = Math::Vector3::Left * 5.0f;
+
+	start.y += 0.3f;
+	end.y += 0.3f;
+
+	spLift->SetRoute(start,end);
+	AddObject(spLift);
 
 	//AudioEngin初期化
 	DirectX::AUDIO_ENGINE_FLAGS eflags =
