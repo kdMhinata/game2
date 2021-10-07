@@ -176,6 +176,7 @@
     <ClInclude Include="Src\System\Math\KdAnimation.h" />
     <ClInclude Include="Src\System\Math\KdCollision.h" />
     <ClInclude Include="Src\System\Shader\EffectShader\KdEffectShader.h" />
+    <ClInclude Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap.h" />
     <ClInclude Include="Src\System\Shader\KdShaderManager.h" />
     <ClInclude Include="Src\System\Shader\ModelShader\KdModelShader.h" />
     <ClInclude Include="Src\System\Shader\SpriteShader\KdSpriteShader.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Src\System\Math\KdAnimation.cpp" />
     <ClCompile Include="Src\System\Math\KdCollision.cpp" />
     <ClCompile Include="Src\System\Shader\EffectShader\KdEffectShader.cpp" />
+    <ClCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap.cpp" />
     <ClCompile Include="Src\System\Shader\KdShaderManager.cpp" />
     <ClCompile Include="Src\System\Shader\ModelShader\KdModelShader.cpp" />
     <ClCompile Include="Src\System\Shader\SpriteShader\KdSpriteShader.cpp" />
@@ -226,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\System\Shader\EffectShader\inc_KdEffectShader.hlsli" />
+    <None Include="Src\System\Shader\GenerateShadowMap\inc_GenerateShadowMap.hlsli" />
     <None Include="Src\System\Shader\inc_KdCommon.hlsli" />
     <None Include="Src\System\Shader\SpriteShader\inc_KdSpriteShader.hlsli" />
     <None Include="Src\System\Shader\StandardShader\inc_KdStandardShader.hlsli" />
@@ -236,6 +239,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Src\System\Shader\EffectShader\KdEffectShader_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap_VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
     </FxCompile>

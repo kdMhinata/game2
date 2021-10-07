@@ -64,6 +64,9 @@
     <Filter Include="Src\System\Shader\ModelShader">
       <UniqueIdentifier>{a515b183-d1d5-4023-a8cd-140320fceb04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\System\Shader\GenerateShadowMapShader">
+      <UniqueIdentifier>{3b5d0e66-a1d7-40ab-a3bf-fdfdd0922c56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -192,6 +195,9 @@
     <ClInclude Include="Src\System\Shader\ModelShader\KdModelShader.h">
       <Filter>Src\System\Shader\ModelShader</Filter>
     </ClInclude>
+    <ClInclude Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap.h">
+      <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -299,6 +305,9 @@
     <ClCompile Include="Src\System\Shader\ModelShader\KdModelShader.cpp">
       <Filter>Src\System\Shader\ModelShader</Filter>
     </ClCompile>
+    <ClCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap.cpp">
+      <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\System\Shader\EffectShader\inc_KdEffectShader.hlsli">
@@ -312,6 +321,9 @@
     </None>
     <None Include="Src\System\Shader\StandardShader\inc_KdStandardShader.hlsli">
       <Filter>Src\System\Shader\StandardShader</Filter>
+    </None>
+    <None Include="Src\System\Shader\GenerateShadowMap\inc_GenerateShadowMap.hlsli">
+      <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +353,12 @@
     </FxCompile>
     <FxCompile Include="Src\System\Shader\ModelShader\KdModelShader_PS.hlsl">
       <Filter>Src\System\Shader\ModelShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap_VS.hlsl">
+      <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap_PS.hlsl">
+      <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
