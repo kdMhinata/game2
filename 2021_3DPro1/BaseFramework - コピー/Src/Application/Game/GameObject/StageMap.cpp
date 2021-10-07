@@ -28,11 +28,11 @@ void StageMap::Draw()
 
 	u += 0.01f;
 
-	SHADER->m_standardShader.SetUVOffset(Math::Vector2(u,0));
+	//SHADER->m_standardShader.SetUVOffset(Math::Vector2(u,0));
 
 	SHADER->m_standardShader.DrawModel(m_modelWork, m_mWorld);
 
-	SHADER->m_standardShader.SetUVOffset(Math::Vector2::Zero)
+	//SHADER->m_standardShader.SetUVOffset(Math::Vector2::Zero);
 }
 
 void StageMap::Release()

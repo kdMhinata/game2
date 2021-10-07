@@ -61,6 +61,9 @@
     <Filter Include="Src\Application\Utility\Easing">
       <UniqueIdentifier>{eac3262b-f6a5-4d29-a50a-58cfdf949cef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\System\Shader\ModelShader">
+      <UniqueIdentifier>{a515b183-d1d5-4023-a8cd-140320fceb04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="Src\Application\Utility\Easing\Easing.h">
       <Filter>Src\Application\Utility\Easing</Filter>
     </ClInclude>
+    <ClInclude Include="Src\System\Shader\ModelShader\KdModelShader.h">
+      <Filter>Src\System\Shader\ModelShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -290,6 +296,9 @@
     <ClCompile Include="Src\Application\Utility\Easing\Easing.cpp">
       <Filter>Src\Application\Utility\Easing</Filter>
     </ClCompile>
+    <ClCompile Include="Src\System\Shader\ModelShader\KdModelShader.cpp">
+      <Filter>Src\System\Shader\ModelShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Src\System\Shader\EffectShader\inc_KdEffectShader.hlsli">
@@ -326,6 +335,12 @@
     </FxCompile>
     <FxCompile Include="Src\System\Shader\StandardShader\KdStandardShader_VS_Skin.hlsl">
       <Filter>Src\System\Shader\StandardShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\System\Shader\ModelShader\KdModelShader_VS.hlsl">
+      <Filter>Src\System\Shader\ModelShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Src\System\Shader\ModelShader\KdModelShader_PS.hlsl">
+      <Filter>Src\System\Shader\ModelShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
