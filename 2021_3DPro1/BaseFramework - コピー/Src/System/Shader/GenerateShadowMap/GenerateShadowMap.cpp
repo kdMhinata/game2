@@ -1,5 +1,5 @@
 ﻿#include "GenerateShadowMap.h"
-
+/*
 bool GenerateShadowMapShader::Init()
 {
 	//-------------------------------------
@@ -60,3 +60,4 @@ void GenerateShadowMaoShader::Release()
 {
 	KdSafeRelease(m_VS);
 }
+*/

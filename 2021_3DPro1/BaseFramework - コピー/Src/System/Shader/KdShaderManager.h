@@ -3,7 +3,7 @@
 #include "EffectShader/KdEffectShader.h"
 #include "StandardShader/KdStandardShader.h"
 #include "SpriteShader/KdSpriteShader.h"
-
+#include "ModelShader/KdModelShader.h"
 //==========================================================
 //
 // シェーダ関係をまとめたクラス
@@ -35,6 +35,7 @@ public:
 	KdEffectShader			m_effectShader;			// エフェクト描画シェーダ
 	KdSpriteShader			m_spriteShader;			// 2Dテクスチャ描画シェーダ
 
+	KdModelShader			m_modelShader;			//自作モデルシェーダー
 	//==========================
 	//
 	// カメラ関係
