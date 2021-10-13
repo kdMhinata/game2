@@ -4,6 +4,7 @@
 #include"Arrow.h"
 #include"../GameSystem.h"
 #include "Src/Application/Utility/DebugObject/DebugObject.h"
+#include "Effect2D.h"
 
 const float Player::s_limitOfStepHeight = 0.5f;
 
@@ -50,6 +51,11 @@ void Player::Init()
 	m_spDebugObject = std::make_shared<DebugObject>();
 
 	m_ScopeTex = GameResourceFactory.GetTexture("Data/Textures/scope.png");
+
+	m_spShadow = std::make_shared<Effect2D>();
+	m_spShadow->Init();
+	m_spShadow->SetPos(GetPos());
+	m_spShadow->SetTexture(GameResourceFactory.GetTexture("Data/Textures/scope.png"));
 		
 }
 
@@ -76,6 +82,22 @@ void Player::Draw2D()
 	SHADER->m_spriteShader.DrawBox(x, 0, 200, 200);
 
 	++time;*/
+}
+
+void Player::DrawEffect()
+{
+	if (!m_spShadow) { return; }
+
+	Math::Matrix mDraw;
+
+	Math::Vector3 scale = Math::Vector3::One;
+	mDraw = Math::Matrix::CreateScale(scale);
+
+	mDraw *= Math::Matrix::CreateRotationX(DirectX::XMConvertToRadians(90));
+
+	mDraw.Translation(GetPos());
+
+	SHADER->m_effectShader.DrawSquarePolygon(m_spShadow->GetPolyData(), mDraw);
 }
 
 // çXêVèàóù

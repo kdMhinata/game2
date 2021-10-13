@@ -3,6 +3,7 @@
 #include"GameObject.h"
 
 class TPSCamera;
+class Effect2D;
 
 class Player : public GameObject
 {
@@ -12,6 +13,7 @@ public:
 
 	void Init() override;
 	void Draw2D() override;
+	void DrawEffect()override;
 	void Update() override;
 
 	//ターゲットObjectの設定
@@ -60,10 +62,12 @@ private:
 	std::weak_ptr<const GameObject> m_wpTarget;
 
 	std::shared_ptr<TPSCamera>		m_spCamera;
+	std::shared_ptr<Effect2D> m_spShadow=nullptr;
 
 	KdAnimator m_animator;
 
 	std::shared_ptr<KdTexture> m_ScopeTex;
+
 	
 	bool m_canShot = true;
 	bool m_canJump = true;

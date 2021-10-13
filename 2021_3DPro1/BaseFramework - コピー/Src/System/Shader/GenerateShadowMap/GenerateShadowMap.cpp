@@ -1,5 +1,89 @@
 ﻿#include "GenerateShadowMap.h"
+
+void GenerateShadowMapShader::SetToDevice()
+{
+	ID3D11DeviceContext* DevCon = D3D.WorkDevContext();
+	if (!DevCon) { return; }
+
+	//頂点シェーダーをセット
+	DevCon->VSSetShader(m_VS,0,0);
+
+	//頂点データのレイアウトをセット
+	DevCon->IASetInputLayout(m_inputLayout);
+
+	//ピクセルシェーダーをセット
+	DevCon->PSSetShader(m_PS,0,0);
+
+	//14番と15番はシステムによって使用されている
+	DevCon->VSSetConstantBuffers(0,1,m_cb0.GetAddress());
+}
+void GenerateShadowMapShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& materials)
+{
+	if (mesh == nullptr)return;
+
+	// 定数バッファ書き込み
+	m_cb0.Write();
+
+	// メッシュ情報をセット
+	mesh->SetToDevice();
+
+	// 全サブセット
+	for (UINT subi = 0; subi < mesh->GetSubsets().size(); subi++)
+	{
+		// 面が１枚も無い場合はスキップ
+		if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+
+		// マテリアルセット
+		const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
 /*
+		//-----------------------
+		// マテリアル情報を定数バッファへ書き込む
+		//-----------------------
+		m_cb1_Material.Work().BaseColor = material.BaseColor;
+		m_cb1_Material.Write();
+
+		//-----------------------
+		// テクスチャセット
+		//-----------------------
+
+		ID3D11ShaderResourceView* srvs[1] = {};
+		// BaseColor
+		srvs[0] = material.BaseColorTex->WorkSRView();
+		// セット
+		D3D.WorkDevContext()->PSSetShaderResources(0, _countof(srvs), srvs);
+		*/
+
+		//-----------------------
+		// サブセット描画
+		//-----------------------
+		mesh->DrawSubset(subi);
+	}
+}
+void GenerateShadowMapShader::DrawModel(const KdModelWork& rModel, const Math::Matrix& mWorld)
+{
+	// 有効じゃないときはスキップ
+	if (!rModel.IsEnable()) { return; }
+
+	const std::shared_ptr<KdModelData>& data = rModel.GetData();
+
+	// モデルがないときはスキップ
+	if (data == nullptr) { return; }
+
+	// 全メッシュノードを描画
+	for (auto& nodeIdx : data->GetMeshNodeIndices())
+	{
+		auto& rWorkNode = rModel.GetNodes()[nodeIdx];
+
+		const std::shared_ptr<KdMesh>& spMesh = rModel.GetMesh(nodeIdx);
+
+		// 行列セット
+		m_cb0.Work().mWorld=rWorkNode.m_worldTransform * mWorld;
+		m_cb0.Write();
+
+		// 描画
+		DrawMesh(spMesh.get(), data->GetMaterials());
+	}
+}
 bool GenerateShadowMapShader::Init()
 {
 	//-------------------------------------
@@ -52,12 +136,16 @@ bool GenerateShadowMapShader::Init()
 			return false;
 		}
 	}
+	m_cb0.Create();
 
 	return true;
 }
 
-void GenerateShadowMaoShader::Release()
+void GenerateShadowMapShader::Release()
 {
 	KdSafeRelease(m_VS);
+	KdSafeRelease(m_inputLayout);
+	KdSafeRelease(m_PS);
+
+	m_cb0.Release();
 }
-*/

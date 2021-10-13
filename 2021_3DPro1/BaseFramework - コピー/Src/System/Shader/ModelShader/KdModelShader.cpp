@@ -55,6 +55,8 @@ bool KdModelShader::Init()
         }
     }
 
+    //定数バッファ作成
+    m_cb0.Create();
     return true;
 }
 
@@ -63,6 +65,8 @@ void KdModelShader::Release()
     KdSafeRelease(m_VS);
     KdSafeRelease(m_PS);
     KdSafeRelease(m_inputLayout);
+
+    m_cb0.Release();
 }
 
 void KdModelShader::SetToDevice()
@@ -74,11 +78,18 @@ void KdModelShader::SetToDevice()
 
     // ピクセルシェーダをセット
     D3D.WorkDevContext()->PSSetShader(m_PS, 0, 0);
+
+    //定数bufferをセット
+    D3D.WorkDevContext()->VSSetConstantBuffers(0, 1, m_cb0.GetAddress());
+    D3D.WorkDevContext()->PSSetConstantBuffers(0, 1, m_cb0.GetAddress());
 }
 
 void KdModelShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& materials)
 {
     if (mesh == nullptr)return;
+
+    //定数バッファ書き込み
+    m_cb0.Write();
 
     // 頂点シェーダをセット
     D3D.WorkDevContext()->VSSetShader(m_VS, 0, 0);
@@ -118,6 +129,7 @@ void KdModelShader::DrawModel(const KdModelWork& rModel, const Math::Matrix& mWo
 
         const std::shared_ptr<KdMesh>& spMesh = rModel.GetMesh(nodeIdx);
 
+        SetWorldMatrix(rWorkNode.m_worldTransform * mWorld);
         // 描画
         DrawMesh(spMesh.get(), data->GetMaterials());
     }

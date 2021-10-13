@@ -17,6 +17,8 @@ public :
 	//モデルから取り出したメッシュ(ノード)を描画する
 	void DrawMesh(const KdMesh* mesh,
 					const std::vector<KdMaterial>& materials);
+
+	void SetWorldMatrix(const Math::Matrix& m) { m_cb0.Work().mWorld = m; }
 private :
 	//シェーダーを読み込んで確保しておく場所
 	ID3D11VertexShader* m_VS = nullptr;
@@ -25,4 +27,11 @@ private :
 	ID3D11InputLayout* m_inputLayout = nullptr;
 
 	ID3D11PixelShader* m_PS = nullptr;
+
+	struct cbObject
+	{
+		Math::Matrix mWorld;
+
+	};
+	KdConstantBuffer<cbObject> m_cb0;
 };

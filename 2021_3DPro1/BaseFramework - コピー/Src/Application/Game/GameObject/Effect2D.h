@@ -22,6 +22,8 @@ public:
 
 	//void CreateExplode(); //将来的にはこれを外部ファイル化した方がいい
 	//void CreateEffect(FileObject file);
+
+	const KdSquarePolygon GetPolyData() const { return m_poly; }
 private:
 
 	KdSquarePolygon m_poly;
