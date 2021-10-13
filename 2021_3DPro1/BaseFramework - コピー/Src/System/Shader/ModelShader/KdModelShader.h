@@ -33,5 +33,12 @@ private :
 		Math::Matrix mWorld;
 
 	};
+
+	//定数buffer
+	struct cbMaterial
+	{
+		Math::Vector4 BaseColor;
+	};
 	KdConstantBuffer<cbObject> m_cb0;
+	KdConstantBuffer<cbMaterial>m_cb1_Material;
 };

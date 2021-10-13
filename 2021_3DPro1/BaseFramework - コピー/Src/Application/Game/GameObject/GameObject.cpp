@@ -3,7 +3,7 @@
 
 void GameObject::Draw()
 {
-	SHADER->m_standardShader.DrawModel(m_modelWork, m_mWorld);
+	SHADER->m_modelShader.DrawModel(m_modelWork, m_mWorld);
 }
 
 bool GameObject::CheckCollisionBump(const SphereInfo& info, BumpResult& result)

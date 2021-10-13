@@ -230,6 +230,7 @@
     <None Include="Src\System\Shader\EffectShader\inc_KdEffectShader.hlsli" />
     <None Include="Src\System\Shader\GenerateShadowMap\inc_GenerateShadowMap.hlsli" />
     <None Include="Src\System\Shader\inc_KdCommon.hlsli" />
+    <None Include="Src\System\Shader\ModelShader\inc_KdModelShader.hlsli" />
     <None Include="Src\System\Shader\SpriteShader\inc_KdSpriteShader.hlsli" />
     <None Include="Src\System\Shader\StandardShader\inc_KdStandardShader.hlsli" />
   </ItemGroup>

@@ -325,6 +325,9 @@
     <None Include="Src\System\Shader\GenerateShadowMap\inc_GenerateShadowMap.hlsli">
       <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
     </None>
+    <None Include="Src\System\Shader\ModelShader\inc_KdModelShader.hlsli">
+      <Filter>Src\System\Shader\ModelShader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Src\System\Shader\EffectShader\KdEffectShader_PS.hlsl">

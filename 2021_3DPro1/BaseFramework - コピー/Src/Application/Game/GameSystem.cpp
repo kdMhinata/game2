@@ -170,7 +170,7 @@ void GameSystem::Draw()
 	}
 
 	// 陰影をつける
-	SHADER->m_standardShader.SetToDevice();
+	SHADER->m_modelShader.SetToDevice();
 
 	for (std::shared_ptr<GameObject>& spObject : m_spObjects)
 	{

@@ -57,6 +57,7 @@ bool KdModelShader::Init()
 
     //定数バッファ作成
     m_cb0.Create();
+    m_cb1_Material.Create();
     return true;
 }
 
@@ -67,6 +68,7 @@ void KdModelShader::Release()
     KdSafeRelease(m_inputLayout);
 
     m_cb0.Release();
+    m_cb1_Material.Release();
 }
 
 void KdModelShader::SetToDevice()
@@ -82,6 +84,9 @@ void KdModelShader::SetToDevice()
     //定数bufferをセット
     D3D.WorkDevContext()->VSSetConstantBuffers(0, 1, m_cb0.GetAddress());
     D3D.WorkDevContext()->PSSetConstantBuffers(0, 1, m_cb0.GetAddress());
+
+    D3D.WorkDevContext()->VSSetConstantBuffers(1, 1, m_cb1_Material.GetAddress());
+    D3D.WorkDevContext()->PSSetConstantBuffers(1, 1, m_cb1_Material.GetAddress());
 }
 
 void KdModelShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& materials)
@@ -90,6 +95,7 @@ void KdModelShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& 
 
     //定数バッファ書き込み
     m_cb0.Write();
+    m_cb1_Material.Create();
 
     // 頂点シェーダをセット
     D3D.WorkDevContext()->VSSetShader(m_VS, 0, 0);
@@ -104,6 +110,17 @@ void KdModelShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& 
     {
         // 面が１枚も無い場合はスキップ
         if (mesh->GetSubsets()[subi].FaceCount == 0)continue;
+
+        //マテリアル情報を設定
+        const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
+
+        //マテリアル情報を定数bufferへ書き込む
+        m_cb1_Material.Work().BaseColor = material.BaseColor;
+        m_cb1_Material.Write();
+
+        //テクスチャをセット
+        //ベースカラーテクスチャのgpuへの受け渡し
+        D3D.WorkDevContext()->PSSetShaderResources(0, 1, material.BaseColorTex->WorkSRViewAddress());
 
         //-----------------------
         // サブセット描画
