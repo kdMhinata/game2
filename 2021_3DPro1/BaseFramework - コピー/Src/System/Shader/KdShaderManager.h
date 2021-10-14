@@ -4,6 +4,7 @@
 #include "StandardShader/KdStandardShader.h"
 #include "SpriteShader/KdSpriteShader.h"
 #include "ModelShader/KdModelShader.h"
+#include "GenerateShadowMap/GenerateShadowMap.h"
 //==========================================================
 //
 // シェーダ関係をまとめたクラス
@@ -36,6 +37,7 @@ public:
 	KdSpriteShader			m_spriteShader;			// 2Dテクスチャ描画シェーダ
 
 	KdModelShader			m_modelShader;			//自作モデルシェーダー
+	GenerateShadowMapShader			m_shadowShader; 
 	//==========================
 	//
 	// カメラ関係

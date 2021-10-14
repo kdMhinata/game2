@@ -138,6 +138,12 @@ bool GenerateShadowMapShader::Init()
 	}
 	m_cb0.Create();
 
+	m_dirLightShadowMap = std::make_shared<KdTexture>();
+	m_dirLightZBuffer = std::make_shared<KdTexture>();
+
+	m_dirLightShadowMap->CreateRenderTarget(1024,1024,DXGI_FORMAT_R32_FLOAT);
+	m_dirLightZBuffer->CreateDepthStencil(1024, 1024, DXGI_FORMAT_R32_TYPELESS);
+
 	return true;
 }
 
@@ -148,4 +154,7 @@ void GenerateShadowMapShader::Release()
 	KdSafeRelease(m_PS);
 
 	m_cb0.Release();
+
+	m_dirLightShadowMap = nullptr;
+	m_dirLightZBuffer = nullptr;
 }

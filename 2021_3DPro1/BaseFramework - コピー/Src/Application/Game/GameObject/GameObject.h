@@ -52,6 +52,7 @@ public:
 
 	virtual void Init(){}
 	virtual void Update(){}
+	virtual void DrawShadowMap();
 	virtual void Draw();
 	virtual void DrawEffect() {}
 	virtual void Draw2D() {}

@@ -1,6 +1,11 @@
 ﻿#include "GameObject.h"
 #include "Application/Utility/DebugObject/DebugObject.h"
 
+void GameObject::DrawShadowMap()
+{
+	SHADER->m_shadowShader.DrawModel(m_modelWork, m_mWorld);
+}
+
 void GameObject::Draw()
 {
 	SHADER->m_modelShader.DrawModel(m_modelWork, m_mWorld);

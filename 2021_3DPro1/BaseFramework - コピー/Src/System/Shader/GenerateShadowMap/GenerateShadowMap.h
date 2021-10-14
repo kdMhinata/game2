@@ -6,6 +6,9 @@ public:
 	GenerateShadowMapShader() {}
 	~GenerateShadowMapShader() {}
 
+	void Begin() {}
+	void End() {}
+
 	void SetToDevice();
 
 	void DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& materials);
@@ -28,4 +31,8 @@ private:
 
 	};
 	KdConstantBuffer<cbObject> m_cb0;
+
+	std::shared_ptr<KdTexture> m_dirLightShadowMap=nullptr;
+	std::shared_ptr<KdTexture> m_dirLightZBuffer=nullptr;
+
 };

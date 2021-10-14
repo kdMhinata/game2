@@ -169,6 +169,15 @@ void GameSystem::Draw()
 		m_spCamera->SetToShader();
 	}
 
+	SHADER->m_shadowShader.SetToDevice();
+	SHADER->m_shadowShader.Begin();
+	for (std::shared_ptr<GameObject>& spObject : m_spObjects)
+	{
+		spObject->DrawShadowMap();
+	}
+	SHADER->m_shadowShader.End();
+
+
 	// 陰影をつける
 	SHADER->m_modelShader.SetToDevice();
 

@@ -20,8 +20,8 @@ void Enemy::Init()
 
 void Enemy::Update()
 {
-	UpdateRotate();
 	UpdateMove();
+	UpdateRotate();
 
 	// ワールド行列生成
 	Math::Matrix trans = Math::Matrix::CreateTranslation(m_worldPos);
