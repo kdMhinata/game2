@@ -17,6 +17,7 @@ cbuffer cbMaterial : register(b1)
 
 struct VS_Output
 {
-	float4 Pos :SV_PoSITION;
-	float2 UV:TEXCOORD0;
+	float4 Pos :SV_POSITION;
+	float2 UV:TEXCOORD0;	 //テクスチャのどこの色を使うか
+	float3 Normal: TEXCOORD1; //法線ベクトル
 };

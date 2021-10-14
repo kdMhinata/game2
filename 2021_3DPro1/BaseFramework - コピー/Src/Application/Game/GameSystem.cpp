@@ -110,13 +110,13 @@ void GameSystem::Update()
 		return;
 	}*/
 
-	// キューブ回転行列
+	/*// キューブ回転行列
 	DirectX::SimpleMath::Matrix rot;
 	rot = rot.CreateRotationY(DirectX::XMConvertToRadians(1.0f));
 
 	m_cubeMat = rot * m_cubeMat;
 	m_cubeMat = m_cubeMat * rot;
-
+	*/
 
 	// スカイスフィア回転
 	DirectX::SimpleMath::Matrix rotSky;

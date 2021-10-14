@@ -2,11 +2,11 @@
 #include "inc_KdModelShader.hlsli"
 
 VS_Output main(float4 pos : POSITION,
-	float2 uv : TEXCOORD0)
+	float2 uv : TEXCOORD0,
+	float3 normal:NORMAL)
 {
 	//構造体を戻り値にする
 	VS_Output Out;
-
 	//ワールド変換(Characterの位置へ変換)
 	float4 wpos = mul(pos,g_mW);
 
@@ -22,6 +22,9 @@ VS_Output main(float4 pos : POSITION,
 
 	//UV座標はそのまま返す
 	Out.UV = uv;
+
+	//法線
+	Out.Normal = normalize(mul(normal, (float3x3)g_mW));
 
 	return Out;
 }
