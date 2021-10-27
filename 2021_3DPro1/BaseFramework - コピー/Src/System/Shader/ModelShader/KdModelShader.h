@@ -38,6 +38,11 @@ private :
 	struct cbMaterial
 	{
 		Math::Vector4 BaseColor;
+
+		float Metallic;
+
+		float Roughness;
+		float tmp[2];
 	};
 	KdConstantBuffer<cbObject> m_cb0;
 	KdConstantBuffer<cbMaterial>m_cb1_Material;

@@ -1,5 +1,58 @@
 ﻿#include "GenerateShadowMap.h"
 
+void GenerateShadowMapShader::Begin()
+{
+	ID3D11DeviceContext* pDevCon = D3D.WorkDevContext();
+	if (pDevCon) { return; }
+
+	if (m_saveRTV || m_saveDSV)
+	{
+		assert(0 && "既に記録されているレンダーターゲットがあります");
+	}
+
+	//直前のレンダーターゲット情報の保存(End()で復元するため)
+	pDevCon->OMGetRenderTargets(1, &m_saveRTV, &m_saveDSV);
+	UINT num = 1;
+	pDevCon->RSGetViewports(&num, &m_saveVP);
+
+	//①シャドウマップ用テクスチャに切り替え
+	pDevCon->OMSetRenderTargets(1, m_dirLightShadowMap->WorkRTViewAddress(), m_dirLightZBuffer->WorkDSView());
+
+	//②ViewPortの切り替え
+	D3D11_VIEWPORT vp =
+	{
+		0.0f,
+		0.0f,
+		m_dirLightShadowMap->GetWidth(),
+		m_dirLightShadowMap->GetHeight(),
+		0.0f,
+		1.0f
+	};
+	pDevCon->RSSetViewports(1, &vp);
+
+	//③テクスチャのクリア
+	pDevCon->ClearRenderTargetView(m_dirLightShadowMap->WorkRTView(), kWhiteColor);
+		pDevCon->ClearDepthStencilView(m_dirLightShadowMap->WorkDSView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+
+	//デバイスコンテキストにパイプラインをセット
+	SetToDevice();
+}
+
+void GenerateShadowMapShader::End()
+{
+	if(!m_saveRTV || !m_saveDSV)
+	{
+		assert(0 && "復帰対象のレンダーターゲットが存在しません");
+		return;
+	}
+	//切り替え前のレンダーターゲットテクスチャーへの復帰
+	D3D.WorkDevContext()->OMSetRenderTargets(1, &m_saveRTV,m_saveDSV);
+	D3D.WorkDevContext()->RSSetViewports(1, &m_saveVP);
+
+	KdSafeRelease(m_saveRTV);
+	KdSafeRelease(m_saveDSV);
+}
+
 void GenerateShadowMapShader::SetToDevice()
 {
 	ID3D11DeviceContext* DevCon = D3D.WorkDevContext();

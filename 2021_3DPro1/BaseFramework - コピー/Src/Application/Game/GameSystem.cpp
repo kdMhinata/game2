@@ -169,14 +169,14 @@ void GameSystem::Draw()
 		m_spCamera->SetToShader();
 	}
 
-	SHADER->m_shadowShader.SetToDevice();
+	/*//影用
 	SHADER->m_shadowShader.Begin();
 	for (std::shared_ptr<GameObject>& spObject : m_spObjects)
 	{
 		spObject->DrawShadowMap();
 	}
 	SHADER->m_shadowShader.End();
-
+	*/
 
 	// 陰影をつける
 	SHADER->m_modelShader.SetToDevice();
@@ -207,6 +207,10 @@ void GameSystem::Draw()
 	}
 
 	SHADER->m_spriteShader.Begin();
+
+	//2D系描画はこの範囲内で行う
+
+	//SHADER->m_spriteShader.DrawTex();
 
 	SHADER->m_spriteShader.End();
 

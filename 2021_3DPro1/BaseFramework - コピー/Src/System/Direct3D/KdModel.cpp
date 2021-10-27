@@ -134,6 +134,14 @@ void KdModelData::CreateMaterials(std::shared_ptr<KdGLTFModel>& spGltfModel, std
 			// 読み込めなかった場合は、代わりに白画像を使用
 			rDstMaterial.MetallicRoughnessTex = D3D.GetWhiteTex();
 		}
+
+		//法線マップ
+		rDstMaterial.NormalTex = std::make_shared<KdTexture>();
+		if (rDstMaterial.NormalTex->Load(fileDir + rSrcMaterial.NormalTexture) == false)
+		{
+			//読み込めなかった場合変わりにz向き法線マップを使用
+			rDstMaterial.NormalTex = D3D.GetNormalTex();
+		}
 	}
 }
 

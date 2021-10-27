@@ -510,6 +510,20 @@ std::shared_ptr<KdGLTFModel> KdLoadGLTFModel(const std::string& path)
 					}
 				}
 
+				// 接線
+				if (srcPrimitive.attributes.count("TANGENT") > 0)
+				{
+					// 接線ゲッター
+					GLTFBufferGetter tangentGetter(&model, srcPrimitive.attributes["TANGENT"]);
+
+					for (UINT vi = 0; vi < destPrimitive->Vertices.size(); vi++) {
+						auto& nor = destPrimitive->Vertices[vi].Tangent;
+						nor.x = tangentGetter.GetValue_Float(vi * 3 + 0);
+						nor.y = tangentGetter.GetValue_Float(vi * 3 + 1);
+						nor.z = tangentGetter.GetValue_Float(vi * 3 + 2) * -1;
+					}
+				}
+
 				// UV
 				if (srcPrimitive.attributes.count("TEXCOORD_0") > 0)
 				{

@@ -5,10 +5,12 @@
 //==========================================================
 struct KdMeshVertex
 {
-	Math::Vector3	Pos;		// 座標
-	Math::Vector2	UV;			// UV
-	Math::Vector3	Normal;		// 法線
+	Math::Vector3	Pos;		                // 座標
+	Math::Vector2	UV;			                // UV
+	Math::Vector3	Normal;		                // 法線
 	unsigned int	Color = 0xFFFFFFFF;			// RGBA色(容量削減のため、各色0～255のUINT型)
+
+	Math::Vector3 Tangent;                      // 接線
 
 	std::array<short, 4>	SkinIndexList;		// スキニングIndexリスト
 	std::array<float, 4>	SkinWeightList;		// スキニングウェイトリスト

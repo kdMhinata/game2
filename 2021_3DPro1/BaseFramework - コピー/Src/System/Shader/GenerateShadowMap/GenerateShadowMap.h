@@ -6,8 +6,8 @@ public:
 	GenerateShadowMapShader() {}
 	~GenerateShadowMapShader() {}
 
-	void Begin() {}
-	void End() {}
+	void Begin();
+	void End();
 
 	void SetToDevice();
 
@@ -34,5 +34,9 @@ private:
 
 	std::shared_ptr<KdTexture> m_dirLightShadowMap=nullptr;
 	std::shared_ptr<KdTexture> m_dirLightZBuffer=nullptr;
+
+	ID3D11RenderTargetView* m_saveRTV = nullptr;
+	ID3D11DepthStencilView* m_saveDSV = nullptr;
+	D3D11_VIEWPORT			m_saveVP = {};
 
 };

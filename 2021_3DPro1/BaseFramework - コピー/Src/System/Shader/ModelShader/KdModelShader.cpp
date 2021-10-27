@@ -20,10 +20,11 @@ bool KdModelShader::Init()
 
         // １頂点の詳細な情報
         std::vector<D3D11_INPUT_ELEMENT_DESC> layout = {
-            { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,	   0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-            { "COLOR",    0, DXGI_FORMAT_R8G8B8A8_UNORM,  0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "POSITION",    0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "TEXCOORD",    0, DXGI_FORMAT_R32G32_FLOAT,	   0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "NORMAL"  ,    0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "COLOR"   ,    0, DXGI_FORMAT_R8G8B8A8_UNORM,  0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "TANGENT" ,    0, DXGI_FORMAT_R32G32B32_FLOAT,  0, 36, D3D11_INPUT_PER_VERTEX_DATA, 0 },
         };
 
         // 頂点入力レイアウト作成
@@ -116,11 +117,20 @@ void KdModelShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& 
 
         //マテリアル情報を定数bufferへ書き込む
         m_cb1_Material.Work().BaseColor = material.BaseColor;
+        m_cb1_Material.Work().Metallic = material.Metallic;
+        m_cb1_Material.Work().Roughness= material.Roughness;
+
         m_cb1_Material.Write();
 
         //テクスチャをセット
         //ベースカラーテクスチャのgpuへの受け渡し
         D3D.WorkDevContext()->PSSetShaderResources(0, 1, material.BaseColorTex->WorkSRViewAddress());
+
+        //Metallic Rooughness map
+        D3D.WorkDevContext()->PSSetShaderResources(1, 1, material.MetallicRoughnessTex->WorkSRViewAddress());
+
+        //Normal Map
+        D3D.WorkDevContext()->PSSetShaderResources(2, 1, material.NormalTex->WorkSRViewAddress());
 
         //-----------------------
         // サブセット描画
