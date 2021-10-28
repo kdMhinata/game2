@@ -19,6 +19,8 @@ public:
 
 	void Release();
 
+	const std::shared_ptr<KdTexture>& GetDLShadowMap() const { return m_dirLightShadowMap; }
+
 private:
 	ID3D11VertexShader* m_VS = nullptr;
 	ID3D11InputLayout* m_inputLayout = nullptr;
