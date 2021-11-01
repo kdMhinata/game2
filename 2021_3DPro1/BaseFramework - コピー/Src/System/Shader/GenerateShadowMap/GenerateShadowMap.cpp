@@ -32,21 +32,28 @@ void GenerateShadowMapShader::Begin()
 
 	//③テクスチャのクリア
 	pDevCon->ClearRenderTargetView(m_dirLightShadowMap->WorkRTView(), kWhiteColor);
-		pDevCon->ClearDepthStencilView(m_dirLightShadowMap->WorkDSView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+	pDevCon->ClearDepthStencilView(m_dirLightShadowMap->WorkDSView(), D3D11_CLEAR_DEPTH, 1.0f, 0);
 
-	//デバイスコンテキストにパイプラインをセット
+	//④ライトのビュー行列・正射影行列
+	Math::Vector3 lightDir = SHADER->m_cb8_Light.Get().DL_Dir;
+	Math::Vector3 lightPos(0, 20, 0);
+
+	//XMMatrixLookAtLH:ある方向を向いた行列を作る関数引数 1 開始位置、　2 目的座標 3 行列の上方向
+	m_cb1_Light.Work().mWorld = DirectX::XMMatrixLookAtLH(lightPos, lightPos + lightDir, Math::Vector3::Up);
+
+	//⑤デバイスコンテキストにパイプラインをセット
 	SetToDevice();
 }
 
 void GenerateShadowMapShader::End()
 {
-	if(!m_saveRTV || !m_saveDSV)
+	if (!m_saveRTV || !m_saveDSV)
 	{
 		assert(0 && "復帰対象のレンダーターゲットが存在しません");
 		return;
 	}
 	//切り替え前のレンダーターゲットテクスチャーへの復帰
-	D3D.WorkDevContext()->OMSetRenderTargets(1, &m_saveRTV,m_saveDSV);
+	D3D.WorkDevContext()->OMSetRenderTargets(1, &m_saveRTV, m_saveDSV);
 	D3D.WorkDevContext()->RSSetViewports(1, &m_saveVP);
 
 	KdSafeRelease(m_saveRTV);
@@ -59,16 +66,18 @@ void GenerateShadowMapShader::SetToDevice()
 	if (!DevCon) { return; }
 
 	//頂点シェーダーをセット
-	DevCon->VSSetShader(m_VS,0,0);
+	DevCon->VSSetShader(m_VS, 0, 0);
 
 	//頂点データのレイアウトをセット
 	DevCon->IASetInputLayout(m_inputLayout);
 
 	//ピクセルシェーダーをセット
-	DevCon->PSSetShader(m_PS,0,0);
+	DevCon->PSSetShader(m_PS, 0, 0);
 
 	//14番と15番はシステムによって使用されている
-	DevCon->VSSetConstantBuffers(0,1,m_cb0.GetAddress());
+	DevCon->VSSetConstantBuffers(0, 1, m_cb0.GetAddress());
+	DevCon->VSSetConstantBuffers(1, 1, m_cb1_Light.GetAddress());
+
 }
 void GenerateShadowMapShader::DrawMesh(const KdMesh* mesh, const std::vector<KdMaterial>& materials)
 {
@@ -88,27 +97,27 @@ void GenerateShadowMapShader::DrawMesh(const KdMesh* mesh, const std::vector<KdM
 
 		// マテリアルセット
 		const KdMaterial& material = materials[mesh->GetSubsets()[subi].MaterialNo];
-/*
-		//-----------------------
-		// マテリアル情報を定数バッファへ書き込む
-		//-----------------------
-		m_cb1_Material.Work().BaseColor = material.BaseColor;
-		m_cb1_Material.Write();
+		/*
+				//-----------------------
+				// マテリアル情報を定数バッファへ書き込む
+				//-----------------------
+				m_cb1_Material.Work().BaseColor = material.BaseColor;
+				m_cb1_Material.Write();
 
-		//-----------------------
-		// テクスチャセット
-		//-----------------------
+				//-----------------------
+				// テクスチャセット
+				//-----------------------
 
-		ID3D11ShaderResourceView* srvs[1] = {};
-		// BaseColor
-		srvs[0] = material.BaseColorTex->WorkSRView();
-		// セット
-		D3D.WorkDevContext()->PSSetShaderResources(0, _countof(srvs), srvs);
-		*/
+				ID3D11ShaderResourceView* srvs[1] = {};
+				// BaseColor
+				srvs[0] = material.BaseColorTex->WorkSRView();
+				// セット
+				D3D.WorkDevContext()->PSSetShaderResources(0, _countof(srvs), srvs);
+				*/
 
-		//-----------------------
-		// サブセット描画
-		//-----------------------
+				//-----------------------
+				// サブセット描画
+				//-----------------------
 		mesh->DrawSubset(subi);
 	}
 }
@@ -130,7 +139,7 @@ void GenerateShadowMapShader::DrawModel(const KdModelWork& rModel, const Math::M
 		const std::shared_ptr<KdMesh>& spMesh = rModel.GetMesh(nodeIdx);
 
 		// 行列セット
-		m_cb0.Work().mWorld=rWorkNode.m_worldTransform * mWorld;
+		m_cb0.Work().mWorld = rWorkNode.m_worldTransform * mWorld;
 		m_cb0.Write();
 
 		// 描画
@@ -190,11 +199,12 @@ bool GenerateShadowMapShader::Init()
 		}
 	}
 	m_cb0.Create();
+	m_cb1_Light.Create();
 
 	m_dirLightShadowMap = std::make_shared<KdTexture>();
 	m_dirLightZBuffer = std::make_shared<KdTexture>();
 
-	m_dirLightShadowMap->CreateRenderTarget(1024,1024,DXGI_FORMAT_R32_FLOAT);
+	m_dirLightShadowMap->CreateRenderTarget(1024, 1024, DXGI_FORMAT_R32_FLOAT);
 	m_dirLightZBuffer->CreateDepthStencil(1024, 1024, DXGI_FORMAT_R32_TYPELESS);
 
 	return true;
@@ -207,6 +217,7 @@ void GenerateShadowMapShader::Release()
 	KdSafeRelease(m_PS);
 
 	m_cb0.Release();
+	m_cb1_Light.Release();
 
 	m_dirLightShadowMap = nullptr;
 	m_dirLightZBuffer = nullptr;

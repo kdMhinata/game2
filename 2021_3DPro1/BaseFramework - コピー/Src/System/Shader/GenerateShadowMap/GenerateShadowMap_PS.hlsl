@@ -1,6 +1,6 @@
 #include "inc_GenerateShadowMap.hlsli"
 
-float4 main() : SV_TARGET
+float4 main(VSOutput In) : SV_TARGET
 {
-	return float4(0.0f, 0.0f, 0.0f, 1.0f);
+	return float4(In.Pos.z / In.Pos.w, 0.0f, 0.0f, 1.0f);
 }

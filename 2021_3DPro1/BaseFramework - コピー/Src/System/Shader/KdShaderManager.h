@@ -73,7 +73,7 @@ public:
 		float				_blank1;
 
 		// 平行光
-		Math::Vector3		DL_Dir = { 1.0f,-1.0f,1.0f };    // 光の方向
+		Math::Vector3		DL_Dir = { 0,-1.0f,0.1f };    // 光の方向
 		float				_blank2;
 		Math::Vector3		DL_Color = { 1.0f,1.0f,1.0f };  // 光の色
 		float				_blank3;

@@ -34,8 +34,15 @@ private:
 	};
 	KdConstantBuffer<cbObject> m_cb0;
 
-	std::shared_ptr<KdTexture> m_dirLightShadowMap=nullptr;
-	std::shared_ptr<KdTexture> m_dirLightZBuffer=nullptr;
+	struct cb1Light
+	{
+		Math::Matrix m_LightView;
+		Math::Matrix m_LightProj;
+	};
+	KdConstantBuffer<cbObject> m_cb1_Light;
+
+	std::shared_ptr<KdTexture> m_dirLightShadowMap = nullptr;
+	std::shared_ptr<KdTexture> m_dirLightZBuffer = nullptr;
 
 	ID3D11RenderTargetView* m_saveRTV = nullptr;
 	ID3D11DepthStencilView* m_saveDSV = nullptr;
