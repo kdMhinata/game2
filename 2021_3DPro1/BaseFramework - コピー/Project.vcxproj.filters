@@ -67,6 +67,9 @@
     <Filter Include="Src\System\Shader\GenerateShadowMapShader">
       <UniqueIdentifier>{3b5d0e66-a1d7-40ab-a3bf-fdfdd0922c56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Library\json11KdCus">
+      <UniqueIdentifier>{9432247e-320c-45c2-9624-459fd765de0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -198,6 +201,9 @@
     <ClInclude Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap.h">
       <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Library\json11KdCustom\json11.hpp">
+      <Filter>Library\json11KdCus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -307,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Src\System\Shader\GenerateShadowMap\GenerateShadowMap.cpp">
       <Filter>Src\System\Shader\GenerateShadowMapShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Library\json11KdCustom\json11.cpp">
+      <Filter>Library\json11KdCus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

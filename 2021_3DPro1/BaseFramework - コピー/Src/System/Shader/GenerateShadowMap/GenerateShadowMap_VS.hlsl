@@ -23,6 +23,8 @@ VSOutput main(float4 pos : POSITION)
 	Out.Pos = mul(Out.Pos, g_mLightView);	// 平行光から見た頂点の座標に置換
 	Out.Pos = mul(Out.Pos, g_mLightProj);	// 平行光の正射影座標系(2D正方形の画像)変換
 
+	Out.ProjPos = Out.Pos;
+
 	// UV座標
 	//Out.UV = uv * g_UVTiling + g_UVOffset;
 

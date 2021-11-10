@@ -35,6 +35,7 @@ void GameSystem::GameInit()
 
 	std::shared_ptr<Player> spPlayer = std::make_shared<Player>();	// プレイヤーのインスタンス化
 	spPlayer->Init();
+	spPlayer->Deserialize(KdLoadJSON("Data/Json/Prefab/Player.json"));
 	AddObject(spPlayer);
 
 	std::shared_ptr<Enemy> spEnemy = std::make_shared<Enemy>();
@@ -180,11 +181,14 @@ void GameSystem::Draw()
 
 	// 陰影をつける
 	SHADER->m_modelShader.SetToDevice();
+	D3D.WorkDevContext()->PSSetShaderResources(10, 1, SHADER->m_shadowShader.GetDLShadowMap()->WorkSRViewAddress());
 
 	for (std::shared_ptr<GameObject>& spObject : m_spObjects)
 	{
 		spObject->Draw();
 	}
+
+	ID3D11ShaderResourceView* nullSRV = nullptr;
 
 	SHADER->m_effectShader.SetToDevice();	// 描画前に必要
 

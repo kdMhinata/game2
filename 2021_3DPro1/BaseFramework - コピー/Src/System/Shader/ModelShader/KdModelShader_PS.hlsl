@@ -6,6 +6,8 @@ Texture2D g_baseTex : register(t0);
 Texture2D g_mrTex : register(t1);
 Texture2D g_normalTex: register(t2);
 
+Texture2D g_dirLightShadowMap : register(t10);
+
 //サンプラ(テクスチャから情報を抜き出す機能)
 SamplerState g_ss : register(s0);
 
@@ -68,6 +70,21 @@ float4 main(VS_Output In) : SV_TARGET
 	//材質の反射色(非金属ほど光の色をそのまま反射し、金属程材質の色が乗る)
 	const float3 bassSpecular = lerp(0.04,baseColor.rgb,metallic);
 
+	float shadow = 1.0;
+
+	//ライトのビュー行列と射影行列で変換
+	float4 dlPos = mul(float4(In.wPos, 1), g_DL_mViewProj);
+
+	//深度を求める
+	dlPos = dlPos.xyz / dlPos.w;
+
+	if (abs(dlPos.x) <= 1.0 && abs(dlPos.y) <= 1.0 && abs(dlPos.z) <= 1.0)
+	{
+		float2 uv = dlPos.xy * float2(1, -1) * 0.5f + 0.5f;
+
+		shadow = m_dirLightShadowMap.Sample(g_ss, uv).r < dlPos.z ? 0 : 1.0;
+	}
+
 
 	//Diffuse(拡散光)
 	{
@@ -82,7 +99,7 @@ float4 main(VS_Output In) : SV_TARGET
 		color += (g_DL_Color * lightDiffuse) * baseColor.rgb * baseColor.a;
 	}
 
-	color += g_AmbientLight * baseColor.rgb * baseColor.a;
+	color += g_AmbientLight * baseColor.rgb * baseColor.a * shadow;
 
 	//反射光
 	{

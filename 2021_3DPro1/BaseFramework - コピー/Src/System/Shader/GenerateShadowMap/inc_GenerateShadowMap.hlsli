@@ -6,4 +6,5 @@
 struct VSOutput
 {
 	float4 Pos: SV_Position;
+	float4 ProjPos: TEXCOORDO; //•ÏŠ·–³‚ÌË‰es—ñ
 };

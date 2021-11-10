@@ -19,7 +19,7 @@ Player::~Player()
 
 void Player::Init()
 {
-	m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/SkinMeshMan/SkinMeshMan.gltf"));
+	//m_modelWork.SetModel(GameResourceFactory.GetModelData("Data/Models/SkinMeshMan/SkinMeshMan.gltf"));
 
 	m_spCamera = std::make_shared<TPSCamera>();
 
@@ -43,7 +43,7 @@ void Player::Init()
 
 	m_radius = 0.5f;
 
-	m_animator.SetAnimation(m_modelWork.GetData()->GetAnimation("Walk"));
+	//m_animator.SetAnimation(m_modelWork.GetData()->GetAnimation("Walk"));
 
 	m_spActionState = std::make_shared<ActionWait>();
 

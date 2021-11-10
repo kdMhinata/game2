@@ -77,6 +77,8 @@ public:
 		float				_blank2;
 		Math::Vector3		DL_Color = { 1.0f,1.0f,1.0f };  // 光の色
 		float				_blank3;
+
+		Math::Matrix DL_mViewProj; //平方光のビュー行列*射影行列
 	};
 
 	// ライト定数バッファ

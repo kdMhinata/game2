@@ -51,6 +51,7 @@ public:
 	virtual ~GameObject() { Release(); }
 
 	virtual void Init(){}
+	virtual void Deserialize(const json11::Json& jsonObj);
 	virtual void Update(){}
 	virtual void DrawShadowMap();
 	virtual void Draw();

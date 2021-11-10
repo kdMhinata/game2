@@ -1,6 +1,16 @@
 ﻿#include "GameObject.h"
 #include "Application/Utility/DebugObject/DebugObject.h"
 
+void GameObject::Deserialize(const json11::Json& jsonObj)
+{
+	if (!jsonObj.is_null())
+	{
+		m_modelWork.SetModel(
+			GameResourceFactory.GetModelData(jsonObj["ModelFilename"].string_value()));
+	}
+}
+
+
 void GameObject::DrawShadowMap()
 {
 	SHADER->m_shadowShader.DrawModel(m_modelWork, m_mWorld);

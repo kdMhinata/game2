@@ -39,7 +39,16 @@ void GenerateShadowMapShader::Begin()
 	Math::Vector3 lightPos(0, 20, 0);
 
 	//XMMatrixLookAtLH:ある方向を向いた行列を作る関数引数 1 開始位置、　2 目的座標 3 行列の上方向
-	m_cb1_Light.Work().mWorld = DirectX::XMMatrixLookAtLH(lightPos, lightPos + lightDir, Math::Vector3::Up);
+	m_cb1_Light.Work().mLightView = DirectX::XMMatrixLookAtLH(lightPos, lightPos + lightDir, Math::Vector3::Up);
+
+	//正射影行列
+	m_cb1_Light.Work().mLightProj = DirectX::XMMatrixOrthographicLH(50, 50, 0, 100);
+
+	m_cb1_Light.Write();
+
+	SHADER->m_cb8_Light.Work().DL_mViewProj = m_cb1_Light.Get().mLightView * m_cb1_Light.Get().m_LightProj;
+
+	SHADER->m_cb8_Light.Write();
 
 	//⑤デバイスコンテキストにパイプラインをセット
 	SetToDevice();
